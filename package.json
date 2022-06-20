@@ -1,5 +1,5 @@
 {
-  "name": "4devs-app",
+  "name": "4devs-react-app",
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
