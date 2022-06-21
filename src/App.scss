@@ -8,6 +8,16 @@
 :root{
   // COLORS
   --black: #252a2b;
+  --grey: rgba(0, 0, 0, 0.12);
   --white: #e7e7e7;
   --light-blue: #44b8fc;
+}
+
+.divider {
+  margin: 1rem 0 !important;
+}
+
+@mixin sectionContainer($mt: 1.5rem, $mb: 1.5rem) {
+  margin: $mt auto $mb;
+  max-width: 1200px;
 }

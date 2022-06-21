@@ -1,0 +1,24 @@
+@import "../../App.scss";
+
+section.store {
+    flex-grow: 1;
+    @include sectionContainer(3rem);
+
+    h1 {
+        font-family: "Russo One";
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    small {
+        color: gray;
+        margin-right: 0.5rem;
+    }
+
+    .productsSorter {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+}
