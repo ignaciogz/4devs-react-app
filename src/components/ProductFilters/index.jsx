@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -21,7 +22,9 @@ const ProductFilters = ({ categories, brands }) => {
       {categories.length > 0 ? (
         <ul>
           {categories.map((item, index) => (
-            <li key={index}>{categories[index]}</li>
+            <li key={index}>
+              <Button variant="text">{item}</Button>
+            </li>
           ))}
         </ul>
       ) : (
@@ -66,7 +69,9 @@ const ProductFilters = ({ categories, brands }) => {
       {brands.length > 0 ? (
         <ul>
           {brands.map((item, index) => (
-            <li key={index}>{brands[index]}</li>
+            <li key={index}>
+              <Button variant="text">{item}</Button>
+            </li>
           ))}
         </ul>
       ) : (

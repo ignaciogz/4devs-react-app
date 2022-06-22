@@ -15,6 +15,11 @@
   --yellow: #dbfd02;
 }
 
+a {
+  color: var(--pure-white);
+  text-decoration: none;
+}
+
 .divider {
   margin: 1rem 0 !important;
 }
@@ -22,4 +27,10 @@
 @mixin sectionContainer($mt: 1.5rem, $mb: 1.5rem) {
   margin: $mt auto $mb;
   max-width: 1200px;
+}
+
+@media (min-width: 600px) {
+  #back-to-top-anchor {
+    min-height: 1px;
+  }
 }

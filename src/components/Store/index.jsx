@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import FormControl from '@mui/material/FormControl'
 import MenuItem from '@mui/material/MenuItem'
+import Toolbar from '@mui/material/Toolbar'
 import Select from '@mui/material/Select'
 
 import './styles.scss'
@@ -56,6 +57,7 @@ const Store = () => {
   return (
     <Box className="store" component="section">
       <h1>4DEVS Shop</h1>
+      <Toolbar id="back-to-top-anchor" />
       <Grid container spacing={2}>
         <Grid item xs={3}>
           <ProductFilters brands={brands} categories={categories} />

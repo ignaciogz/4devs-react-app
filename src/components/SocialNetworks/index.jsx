@@ -9,9 +9,15 @@ import './styles.scss'
 const SocialNetwork = () => {
   return (
     <Box className="social-networks" component="section">
-      <FacebookIcon fontSize="large" />
-      <TwitterIcon fontSize="large" />
-      <InstagramIcon fontSize="large" />
+      <a href="https://facebook.com/" rel="noreferrer" target="_blank">
+        <FacebookIcon fontSize="large" />
+      </a>
+      <a href="https://twitter.com/" rel="noreferrer" target="_blank">
+        <TwitterIcon fontSize="large" />
+      </a>
+      <a href="https://instagram.com/" rel="noreferrer" target="_blank">
+        <InstagramIcon fontSize="large" />
+      </a>
     </Box>
   )
 }
