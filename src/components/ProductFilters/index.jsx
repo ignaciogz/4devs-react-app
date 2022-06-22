@@ -10,10 +10,10 @@ import RadioGroup from '@mui/material/RadioGroup'
 import './styles.scss'
 
 const ProductFilters = ({ categories, brands }) => {
-  const [price, setPrice] = React.useState('')
+  const [filterPrice, setFilterPrice] = React.useState('All')
 
   const handleChange = (event) => {
-    setPrice(event.target.value)
+    setFilterPrice(event.target.value)
   }
 
   return (
@@ -36,30 +36,35 @@ const ProductFilters = ({ categories, brands }) => {
       <FormControl>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue="female"
+          defaultValue="All"
           name="radio-buttons-group"
-          value={price}
+          value={filterPrice}
           onChange={handleChange}
         >
           <FormControlLabel
             control={<Radio className="radio-btn" size="small" />}
+            label="All"
+            value="All"
+          />
+          <FormControlLabel
+            control={<Radio className="radio-btn" size="small" />}
             label="Below $100.00"
-            value="female"
+            value="SubGroup-1"
           />
           <FormControlLabel
             control={<Radio className="radio-btn" size="small" />}
-            label="$100.00-$199.00"
-            value="male"
+            label="$100.00 - $199.00"
+            value="SubGroup-2"
           />
           <FormControlLabel
             control={<Radio className="radio-btn" size="small" />}
-            label="$200.00-$299.00"
-            value="other"
+            label="$200.00 - $299.00"
+            value="SubGroup-3"
           />
           <FormControlLabel
             control={<Radio className="radio-btn" size="small" />}
             label="Above $500.00"
-            value="other 2"
+            value="SubGroup-4"
           />
         </RadioGroup>
       </FormControl>
