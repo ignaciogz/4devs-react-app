@@ -103,8 +103,8 @@ const ResponsiveAppBar = () => {
               }}
               onClose={handleCloseNavMenu}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+              {pages.map((page, index) => (
+                <MenuItem key={index} onClick={handleCloseNavMenu}>
                   <Typography href={page.href} textAlign="center">
                     {page.text}
                   </Typography>
@@ -133,9 +133,9 @@ const ResponsiveAppBar = () => {
             4DEVS
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((page, index) => (
               <Button
-                key={page.text}
+                key={index}
                 href={page.href}
                 sx={{ my: 2, color: 'white', display: 'block' }}
                 onClick={handleCloseNavMenu}

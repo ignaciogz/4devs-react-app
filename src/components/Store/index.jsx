@@ -16,34 +16,39 @@ const brands = ['Brand 1', 'Brand 3', 'Brand 8']
 
 const products = [
   {
+    id: 1,
     name: 'Product 1',
     price: 30,
     description: 'Description 1',
-    img: 'https://dummyimage.com/600x400/000/fff',
+    img: 'https://dummyimage.com/218x180/000/fff',
   },
   {
+    id: 4,
     name: 'Product 4',
     price: 450,
     description: 'Description 4',
-    img: 'https://dummyimage.com/600x400/444/C4A',
+    img: 'https://dummyimage.com/218x180/444/C4A',
   },
   {
+    id: 6,
     name: 'Product 6',
     price: 150,
     description: 'Description 6',
-    img: 'https://dummyimage.com/600x400/AF2/23B',
+    img: 'https://dummyimage.com/218x180/AF2/23B',
   },
   {
-    name: 'Product 1',
-    price: 30,
-    description: 'Description 1',
-    img: 'https://dummyimage.com/600x400/000/fff',
+    id: 8,
+    name: 'Product 8',
+    price: 220,
+    description: 'Description 8',
+    img: 'https://dummyimage.com/218x180/000/fff',
   },
   {
-    name: 'Product 4',
-    price: 450,
-    description: 'Description 4',
-    img: 'https://dummyimage.com/600x400/444/C4A',
+    id: 12,
+    name: 'Product 12',
+    price: 175,
+    description: 'Description 12',
+    img: 'https://dummyimage.com/218x180/444/C4A',
   },
 ]
 
