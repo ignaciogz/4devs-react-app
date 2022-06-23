@@ -9,17 +9,11 @@ import Rating from '@mui/material/Rating'
 
 import './styles.scss'
 
-const prod = {
-  id: 4,
-  name: 'E Foot Rocker',
-  price: 119,
-  description:
-    'Promotes health and comfort by getting the user’s feet moving. This addition to the workstation provides instant relief from prolonged sitting by encouraging a gentle rocking of the feet.; Our solution provides perfect support for the feet and legs when sitting. By engaging lower leg muscles, it increases healthful circulation while also raising the feet to relieve pressure on the lower back.',
-  img: 'https://dummyimage.com/342x342/444/C4A',
-  rating: 4.5,
-}
+const res = await fetch('/mydata.json')
+const data = await res.json()
+const product = data.products[3]
 
-const finalDescription = prod.description.split(';')
+const finalDescription = product.description.split(';')
 
 const ProductDetails = () => {
   const [units, setUnits] = React.useState(1)
@@ -31,17 +25,17 @@ const ProductDetails = () => {
     <Box className="product-details" component="section">
       <Grid container spacing={0}>
         <Grid item xs={4}>
-          <img src={prod.img} />
+          <img src={product.img} />
         </Grid>
         <Grid item xs={8}>
           <Grid container spacing={0}>
             <Grid item xs={5}>
-              <h1>{prod.name}</h1>
-              <Rating readOnly name="read-only" precision={0.5} value={prod.rating} />
+              <h1>{product.name}</h1>
+              <Rating readOnly name="read-only" precision={0.5} value={product.rating} />
               <Divider className="divider" />
             </Grid>
             <Grid item xs={12}>
-              <Typography className="price">${prod.price}</Typography>
+              <Typography className="price">${product.price}</Typography>
             </Grid>
             <Grid item xs={12}>
               {finalDescription.length > 0 &&

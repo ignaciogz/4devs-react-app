@@ -11,46 +11,12 @@ import './styles.scss'
 import ProductCard from '../ProductCard'
 import ProductFilters from '../ProductFilters'
 
-const categories = ['Category 1', 'Category 4', 'Category 7', 'Category 9']
-const brands = ['Brand 1', 'Brand 3', 'Brand 8']
+const res = await fetch('/mydata.json')
+const data = await res.json()
+const products = data.products
 
-const products = [
-  {
-    id: 1,
-    name: 'Product 1',
-    price: 30,
-    description: 'Description 1',
-    img: 'https://dummyimage.com/218x180/000/fff',
-  },
-  {
-    id: 4,
-    name: 'Product 4',
-    price: 450,
-    description: 'Description 4',
-    img: 'https://dummyimage.com/218x180/444/C4A',
-  },
-  {
-    id: 6,
-    name: 'Product 6',
-    price: 150,
-    description: 'Description 6',
-    img: 'https://dummyimage.com/218x180/AF2/23B',
-  },
-  {
-    id: 8,
-    name: 'Product 8',
-    price: 220,
-    description: 'Description 8',
-    img: 'https://dummyimage.com/218x180/000/fff',
-  },
-  {
-    id: 12,
-    name: 'Product 12',
-    price: 175,
-    description: 'Description 12',
-    img: 'https://dummyimage.com/218x180/444/C4A',
-  },
-]
+const categories = ['Accessories', 'Ergonomic', 'Standing desk']
+const brands = ['4DEVS', 'Crazy solutions', 'X Factory']
 
 const Store = () => {
   const [order, setOrder] = React.useState('')

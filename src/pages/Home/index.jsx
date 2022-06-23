@@ -10,7 +10,7 @@ import Footer from '../../components/Footer'
 import Store from '../../components/Store'
 import Commitments from '../../components/Commitments'
 import Slider from '../../components/Slider'
-import ScrollTop from '../../components/ScrollTop'
+import ScrollTo from '../../components/ScrollTo'
 
 const Home = (props) => {
   return (
@@ -20,11 +20,11 @@ const Home = (props) => {
       <Commitments />
       <Store />
       <Footer />
-      <ScrollTop {...props}>
+      <ScrollTo {...props}>
         <Fab aria-label="scroll back to top" size="small">
           <KeyboardArrowUpIcon />
         </Fab>
-      </ScrollTop>
+      </ScrollTo>
     </div>
   )
 }

@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography'
 import './styles.scss'
 import { Link } from 'react-router-dom'
 
-const ProductCard = ({ id, name, price, description, img }) => {
+const ProductCard = ({ id, name, price, img }) => {
   return (
     <Grid item xs={3}>
       <Card className="product-card">
@@ -22,9 +22,6 @@ const ProductCard = ({ id, name, price, description, img }) => {
             <CardContent className="content">
               <Typography gutterBottom component="div" variant="h5">
                 {name}
-              </Typography>
-              <Typography color="text.secondary" variant="body2">
-                {description}
               </Typography>
               <Typography className="price">${price}</Typography>
             </CardContent>

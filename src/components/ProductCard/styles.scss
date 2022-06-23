@@ -4,6 +4,10 @@
     text-align: center;
 
     .product-details {
+        img {
+            object-fit: fill;
+        }
+
         .content {
             padding-bottom: 0;
 
