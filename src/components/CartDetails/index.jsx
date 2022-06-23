@@ -94,7 +94,7 @@ const CartDetails = () => {
   const total = getTotal(rows)
 
   return (
-    <Box className="cart-details" component="div">
+    <Box className="cart-details" component="section">
       <h1>Shopping Cart</h1>
       <TableContainer component={Paper}>
         <Table aria-label="spanning table" sx={{ minWidth: 700 }}>

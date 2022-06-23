@@ -14,7 +14,9 @@ import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import PersonIcon from '@mui/icons-material/Person'
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
+import PersonIcon from '@mui/icons-material/PersonOutline'
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'
 import LogoutIcon from '@mui/icons-material/LogoutRounded'
 
 import './styles.scss'
@@ -26,7 +28,8 @@ const pages = [
 ]
 
 const settings = [
-  { text: 'Profile', icon: PersonIcon },
+  { text: 'Admin', icon: AdminPanelSettingsIcon },
+  { text: 'Profile', icon: ManageAccountsIcon },
   { text: 'Logout', icon: LogoutIcon },
 ]
 
@@ -175,6 +178,9 @@ const ResponsiveAppBar = () => {
               <Badge badgeContent={2}>
                 <ShoppingCartIcon />
               </Badge>
+            </IconButton>
+            <IconButton aria-label="show new notifications" color="inherit" size="large">
+              <PersonIcon />
             </IconButton>
             <Tooltip title="Open settings">
               <IconButton sx={{ p: 0 }} onClick={handleOpenUserMenu}>

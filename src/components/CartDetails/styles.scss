@@ -1,11 +1,12 @@
 @import "../../App.scss";
 
-.cart-details {
+section.cart-details {
     flex-grow: 1;
     min-height: 200px; // OJO
     @include sectionContainer(3rem);
 
     h1 {
+        font-size: 1.8rem;
         margin-bottom: 1.5rem;
         text-align: center;
     }
