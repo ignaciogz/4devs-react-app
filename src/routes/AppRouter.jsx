@@ -7,6 +7,7 @@ import ShoppingCart from '../pages/ShoppingCart'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Success from '../pages/Success'
+import NotFound from '../pages/NotFound'
 
 import ScrollToTop from './ScrollToTop'
 
@@ -21,7 +22,7 @@ const AppRouter = () => {
           <Route element={<Login />} path="/login" />
           <Route element={<Register />} path="/register" />
           <Route element={<Success />} path="/success" />
-          {/* <Route element={<NotFound />} path="*" /> */}
+          <Route element={<NotFound />} path="/404" />
         </Routes>
       </ScrollToTop>
     </BrowserRouter>
