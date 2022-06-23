@@ -1,6 +1,6 @@
 @import "../../App.scss";
 
-section.register {
+section.login {
     flex-grow: 1;
     @include sectionContainer(3rem);
 
@@ -10,24 +10,37 @@ section.register {
         text-align: center;
     }
 
+    button {
+        column-gap: .4rem;
+    }
+
     form {
         display: flex;
         flex-direction: column;
 
         button {
-            column-gap: .4rem;
             background-color: var(--black);
             border-radius: initial;
             width: 100%;
-        }
 
-        button:hover {
-            background-color: var(--light-blue);
-            color: var(--black);
+            &:hover {
+                background-color: var(--light-blue);
+                color: var(--black);
+            }
         }
 
         div {
             width: 100%;
+        }
+    }
+
+    .loginFacebookBtn {
+        background-color:#4267B2;
+        border-radius: initial;
+        width: 100%;
+            
+        &:hover {
+            background-color: #3e5b94;
         }
     }
 }
