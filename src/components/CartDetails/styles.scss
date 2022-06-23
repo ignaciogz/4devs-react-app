@@ -1,0 +1,39 @@
+@import "../../App.scss";
+
+.cart-details {
+    flex-grow: 1;
+    min-height: 200px; // OJO
+    @include sectionContainer(3rem);
+
+    h1 {
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    table {
+        .table-content {
+            img {
+                height: 70px;
+                width: 70px;
+            }
+
+            td:last-child {
+                width: 64px;
+            }
+
+            .units-to-add {
+                width: 100px
+            }
+        }
+
+        .table-footer {
+            td {
+                font-weight: bold;
+            }
+
+            td:last-child {
+                font-size: 1.4rem;
+            }
+        }
+    }
+}

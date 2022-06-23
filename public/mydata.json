@@ -7,7 +7,8 @@
             "price": 870,
             "description": "The Smart’s form-sensing mesh makes for the most intelligent ergonomic office chair you’ve ever met.; Include radical technology adapts its lumbar support to each unique user, providing targeted comfort and ease of use for all bodies.",
             "img": "http://localhost:3000/img/products/smart_chair.jpg",
-            "rating": 5
+            "rating": 5,
+            "stock": 10
         },
         {
             "id": 2,
@@ -16,7 +17,8 @@
             "price": 119,
             "description": "Promotes health and comfort by getting the user’s feet moving. This addition to the workstation provides instant relief from prolonged sitting by encouraging a gentle rocking of the feet.; Our solution provides perfect support for the feet and legs when sitting. By engaging lower leg muscles, it increases healthful circulation while also raising the feet to relieve pressure on the lower back.",
             "img": "http://localhost:3000/img/products/foot_rocker.jpg",
-            "rating": 4.5
+            "rating": 4.5,
+            "stock": 8
           },
         {
             "id": 3,
@@ -25,7 +27,8 @@
             "price": 650,
             "description": "S QuickStand height-adjustable workstation raises the bar for ease of use and stability among sit/stand products. Transforms any fixed-height desk into an active one, promoting collaboration and well-being in the workplace.; With weightless operation and a plug-and-play cable management system, neatly attaches to the back of any work surface, placing the screen and keyboard in an ergonomically correct position for the user.",
             "img": "http://localhost:3000/img/products/s_quickstand.jpg",
-            "rating": 4
+            "rating": 4,
+            "stock": 12
         },
         {
             "id": 4,
@@ -34,7 +37,8 @@
             "price": 1100,
             "description": "Our latest electric sit/stand desk, is the perfect standing desk solution for both home offices and commercial interiors.;With innovative anti-collision technology, quiet motors, and programmable hand switch, it encourages users to be active by seamlessly adjust positions through the day without disrupting workflow.",
             "img": "http://localhost:3000/img/products/desk_go.jpg",
-            "rating": 3.5
+            "rating": 3.5,
+            "stock": 5
         },
         {
             "id": 5,
@@ -43,7 +47,8 @@
             "price": 95,
             "description": "Is a state-of-the-art wireless ergonomic computer mouse built for comfort and productivity.; Engineered by top ergonomists and designers, Extreme click’s shape contours to the user’s palm, eliminating any contact between the hand and the work surface.",
             "img": "http://localhost:3000/img/products/extreme_click.jpg",
-            "rating": 5
+            "rating": 5,
+            "stock": 25
         },
         {
             "id": 6,
@@ -52,7 +57,8 @@
             "price": 236,
             "description": "In many ways, a keyboard support is the heart of an ergonomic workstation.; As reach and vision drive posture, our keyboard tray allows the user to sit in a healthy, neutral posture through bringing the keyboard and mouse to the user in an ergonomic position.",
             "img": "http://localhost:3000/img/products/shake_that.jpg",
-            "rating": 3
+            "rating": 3,
+            "stock": 14
         },
         {
             "id": 7,
@@ -61,7 +67,8 @@
             "price": 65,
             "description": "NeatHub is an all-in-one desktop power solution that offers convenient access for all-day-long connectivity.; It features two AC plugs, a standard USB-A port, and a highly-requested USB-C port.",
             "img": "http://localhost:3000/img/products/e_plug_hub.jpg",
-            "rating": 4.5
+            "rating": 4.5,
+            "stock": 18
         },
         {
             "id": 8,
@@ -70,7 +77,8 @@
             "price": 290,
             "description": "Revolutionary new monitor arm line, instantly improves the comfort, health and productivity of any workspace.; Fully compatible with traditional desks and sit/stand workstations alike, it meets a variety of configuration needs for single monitors from 6 to 28 pounds or – with an optional crossbar support – dual monitors up to 12 pounds each.",
             "img": "http://localhost:3000/img/products/dual_m.jpg",
-            "rating": 4
+            "rating": 4,
+            "stock": 7
         },
         {
             "id": 9,
@@ -79,7 +87,8 @@
             "price": 195,
             "description": "Provides custom ergonomic support for each user, while showcasing minimalist charm. Lightweight, recyclable and long-lasting components also make this chair as eco-friendly as it is stylish.; Pivoting backrest provides gentle recline & encourages movement throughout the day.",
             "img": "http://localhost:3000/img/products/e_freemium.jpg",
-            "rating": 3.5
+            "rating": 3.5,
+            "stock": 18
         }
     ]
 }
