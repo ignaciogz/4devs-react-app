@@ -14,24 +14,21 @@ import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import PersonIcon from '@mui/icons-material/Person'
+import LogoutIcon from '@mui/icons-material/LogoutRounded'
 
 import './styles.scss'
 
 const pages = [
-  { text: 'Home', href: '#!' },
-  { text: 'About Us', href: '#about-us' },
-  { text: 'Contact Us', href: '#!' },
+  { text: 'Home', href: '/', type: 'router' },
+  { text: 'About Us', href: '#about-us', type: 'anchor' },
+  { text: 'Contact Us', href: '/', type: 'router' },
 ]
-const settings = ['Profile', 'Logout']
 
-const getMenuLink = (page) => {
-  switch (page.type) {
-    case 'anchor':
-      return <a href={page.href}>{page.text}</a>
-    case 'router':
-      return <Link to={page.href}>{page.text}</Link>
-  }
-}
+const settings = [
+  { text: 'Profile', icon: PersonIcon },
+  { text: 'Logout', icon: LogoutIcon },
+]
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null)
@@ -40,6 +37,7 @@ const ResponsiveAppBar = () => {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
   }
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget)
   }
@@ -50,6 +48,42 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
+  }
+
+  const GetMenuLink = ({ page }) => {
+    const styles = { my: 2, color: 'white', display: 'block' }
+
+    switch (page.type) {
+      case 'anchor':
+        return (
+          <Button component="a" href={page.href} sx={styles} onClick={handleCloseNavMenu}>
+            {page.text}
+          </Button>
+        )
+      case 'router':
+        return (
+          <Button component={Link} sx={styles} to={page.href} onClick={handleCloseNavMenu}>
+            {page.text}
+          </Button>
+        )
+    }
+  }
+
+  const GetMobileMenuLink = ({ page }) => {
+    switch (page.type) {
+      case 'anchor':
+        return (
+          <Typography component="a" href={page.href} textAlign="center">
+            {page.text}
+          </Typography>
+        )
+      case 'router':
+        return (
+          <Typography component={Link} textAlign="center" to={page.href}>
+            {page.text}
+          </Typography>
+        )
+    }
   }
 
   return (
@@ -105,9 +139,7 @@ const ResponsiveAppBar = () => {
             >
               {pages.map((page, index) => (
                 <MenuItem key={index} onClick={handleCloseNavMenu}>
-                  <Typography href={page.href} textAlign="center">
-                    {page.text}
-                  </Typography>
+                  <GetMobileMenuLink className="prueba" page={page} />
                 </MenuItem>
               ))}
             </Menu>
@@ -134,14 +166,7 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page, index) => (
-              <Button
-                key={index}
-                href={page.href}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-                onClick={handleCloseNavMenu}
-              >
-                {page.text}
-              </Button>
+              <GetMenuLink key={index} page={page} />
             ))}
           </Box>
 
@@ -172,9 +197,10 @@ const ResponsiveAppBar = () => {
               }}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {settings.map((setting, index) => (
+                <MenuItem key={index} onClick={handleCloseUserMenu}>
+                  <Box component={setting.icon} />
+                  <Typography textAlign="center">{setting.text}</Typography>
                 </MenuItem>
               ))}
             </Menu>

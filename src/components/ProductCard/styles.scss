@@ -18,17 +18,7 @@
         justify-content: center;
 
         .add-to-cart-btn {
-            background-color: var(--black);
-            
-            &:hover {
-                background-color: var(--light-blue);
-                color: var(--black);
-            }
-
-            &::before {
-                content: "+";
-                margin-right: .2rem;
-            }
+            @include addToCartBtn();
         }
     }
 }

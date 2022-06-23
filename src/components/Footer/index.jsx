@@ -50,16 +50,16 @@ const Footer = () => {
               <h3>Other Links</h3>
               <ul>
                 <li>
-                  <a href="#!">Our guarantees</a>
+                  <a href="/#!">Our guarantees</a>
                 </li>
                 <li>
-                  <a href="#!">Terms and conditions</a>
+                  <a href="/#!">Terms and conditions</a>
                 </li>
                 <li>
-                  <a href="#!">Privacy policy</a>
+                  <a href="/#!">Privacy policy</a>
                 </li>
                 <li>
-                  <a href="#!">Site map</a>
+                  <a href="/#!">Site map</a>
                 </li>
               </ul>
             </Box>
