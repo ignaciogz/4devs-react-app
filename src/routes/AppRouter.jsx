@@ -6,6 +6,7 @@ import Product from '../pages/Product'
 import ShoppingCart from '../pages/ShoppingCart'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
+import Success from '../pages/Success'
 
 import ScrollToTop from './ScrollToTop'
 
@@ -19,6 +20,7 @@ const AppRouter = () => {
           <Route element={<ShoppingCart />} path="/cart" />
           <Route element={<Login />} path="/login" />
           <Route element={<Register />} path="/register" />
+          <Route element={<Success />} path="/success" />
           {/* <Route element={<NotFound />} path="*" /> */}
         </Routes>
       </ScrollToTop>
