@@ -37,4 +37,20 @@ section.cart-details {
             }
         }
     }
+
+    .cart-details-footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1rem;
+
+        button {
+            background-color: var(--black);
+            border-radius: initial;
+    
+            &:hover {
+                background-color: var(--light-blue);
+                color: var(--black);
+            }
+        }
+    }
 }

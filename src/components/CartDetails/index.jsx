@@ -10,6 +10,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
 import './styles.scss'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import DeleteIcon from '@mui/icons-material/DeleteForever'
 
 import CartQty from '../CartQty'
@@ -136,6 +137,12 @@ const CartDetails = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Box className="cart-details-footer" component="div">
+        <Button className="checkout" size="large" variant="contained">
+          PROCEED TO CHECKOUT
+          <ArrowForwardIcon />
+        </Button>
+      </Box>
     </Box>
   )
 }
