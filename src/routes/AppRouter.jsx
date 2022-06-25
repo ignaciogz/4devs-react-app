@@ -8,6 +8,7 @@ import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Success from '../pages/Success'
 import NotFound from '../pages/NotFound'
+import Admin from '../pages/Admin'
 
 import ScrollToTop from './ScrollToTop'
 
@@ -23,6 +24,7 @@ const AppRouter = () => {
           <Route element={<Register />} path="/register" />
           <Route element={<Success />} path="/success" />
           <Route element={<NotFound />} path="/404" />
+          <Route element={<Admin />} path="/cpanel" />
         </Routes>
       </ScrollToTop>
     </BrowserRouter>
