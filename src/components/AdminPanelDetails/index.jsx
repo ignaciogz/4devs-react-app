@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
@@ -9,9 +8,8 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
-import AddIcon from '@mui/icons-material/Add'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/DeleteForever'
+
+import ModalForm from '../ModalForm'
 
 import './styles.scss'
 
@@ -118,14 +116,10 @@ const createDataFactory = {
 
 function createActions(id) {
   return (
-    <Box component="section">
-      <Button value={id} variant="text">
-        <EditIcon />
-      </Button>
-      <Button value={id} variant="text">
-        <DeleteIcon />
-      </Button>
-    </Box>
+    <>
+      <ModalForm action="edit" id={id} variant="text" />
+      <ModalForm action="delete" id={id} variant="text" />
+    </>
   )
 }
 
@@ -173,10 +167,7 @@ const AdminPanelDetails = () => {
                 <h1>{tableName['categories'].text}</h1>
               </TableCell>
               <TableCell align="right" className="table-name">
-                <Button variant="text">
-                  <AddIcon />
-                  NEW
-                </Button>
+                <ModalForm action="add" text="NEW" variant="text" />
               </TableCell>
             </TableRow>
             <TableRow>
