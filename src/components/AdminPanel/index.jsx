@@ -16,13 +16,15 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined'
 import PeopleIcon from '@mui/icons-material/People'
 import CategoryIcon from '@mui/icons-material/Category'
 import PageviewIcon from '@mui/icons-material/Pageview'
 import LogoutIcon from '@mui/icons-material/LogoutRounded'
+import ListNumberedIcon from '@mui/icons-material/FormatListNumbered'
 
 import AdminPanelDetails from '../AdminPanelDetails'
+import AdminPanelOrders from '../AdminPanelOrders'
 
 import './styles.scss'
 
@@ -94,9 +96,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 )
 
 const group1 = [
-  { text: 'Products', icon: ShoppingCartIcon },
+  { text: 'Products', icon: InventoryOutlinedIcon },
   { text: 'Categories', icon: CategoryIcon },
   { text: 'Users', icon: PeopleIcon },
+  { text: 'Orders', icon: ListNumberedIcon },
 ]
 
 const group2 = [
@@ -104,7 +107,7 @@ const group2 = [
   { text: 'Logout', icon: LogoutIcon },
 ]
 
-const AdminPanel = () => {
+const AdminPanel = ({ page = '' }) => {
   const theme = useTheme()
   const [open, setOpen] = React.useState(false)
 
@@ -197,7 +200,7 @@ const AdminPanel = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <AdminPanelDetails />
+        {page === 'order' ? <AdminPanelOrders /> : <AdminPanelDetails />}
       </Box>
     </Box>
   )

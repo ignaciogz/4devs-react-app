@@ -8,11 +8,11 @@ import Footer from '../../components/Footer'
 
 const Success = () => {
   return (
-    <div>
+    <>
       <ResponsiveAppBar />
       <OrderSuccess />
       <Footer />
-    </div>
+    </>
   )
 }
 

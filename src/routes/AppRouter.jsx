@@ -23,8 +23,9 @@ const AppRouter = () => {
           <Route element={<Login />} path="/login" />
           <Route element={<Register />} path="/register" />
           <Route element={<Success />} path="/success" />
-          <Route element={<NotFound />} path="/404" />
+          <Route element={<NotFound />} path="*" />
           <Route element={<Admin />} path="/cpanel" />
+          <Route element={<Admin />} path="/cpanel/order/:id" />
         </Routes>
       </ScrollToTop>
     </BrowserRouter>

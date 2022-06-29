@@ -8,11 +8,11 @@ import Footer from '../../components/Footer'
 
 const Register = () => {
   return (
-    <div>
+    <>
       <ResponsiveAppBar />
       <UserRegister />
       <Footer />
-    </div>
+    </>
   )
 }
 

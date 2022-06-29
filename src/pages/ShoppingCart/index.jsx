@@ -8,11 +8,11 @@ import Footer from '../../components/Footer'
 
 const ShoppingCart = () => {
   return (
-    <div>
+    <>
       <ResponsiveAppBar />
       <CartDetails />
       <Footer />
-    </div>
+    </>
   )
 }
 

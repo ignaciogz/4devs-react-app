@@ -8,11 +8,11 @@ import Footer from '../../components/Footer'
 
 const NotFound = () => {
   return (
-    <div>
+    <>
       <ResponsiveAppBar />
       <Error404 />
       <Footer />
-    </div>
+    </>
   )
 }
 

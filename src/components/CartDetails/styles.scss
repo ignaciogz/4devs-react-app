@@ -14,8 +14,8 @@ section.cart-details {
     table {
         .table-content {
             img {
-                height: 70px;
-                width: 70px;
+                max-height: 70px;
+                max-width: 70px;
             }
 
             td:last-child {

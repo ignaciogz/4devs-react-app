@@ -14,7 +14,7 @@ import ScrollTo from '../../components/ScrollTo'
 
 const Home = (props) => {
   return (
-    <div>
+    <>
       <ResponsiveAppBar />
       <Slider />
       <Commitments />
@@ -25,7 +25,7 @@ const Home = (props) => {
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollTo>
-    </div>
+    </>
   )
 }
 

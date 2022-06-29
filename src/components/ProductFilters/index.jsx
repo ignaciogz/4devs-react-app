@@ -63,8 +63,13 @@ const ProductFilters = ({ categories, brands }) => {
           />
           <FormControlLabel
             control={<Radio className="radio-btn" size="small" />}
-            label="Above $500.00"
+            label="Below $500.00"
             value="SubGroup-4"
+          />
+          <FormControlLabel
+            control={<Radio className="radio-btn" size="small" />}
+            label="Above $500.00"
+            value="SubGroup-5"
           />
         </RadioGroup>
       </FormControl>
