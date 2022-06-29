@@ -8,15 +8,13 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/DeleteForever'
 
 const modalForm = {
   add: { Icon: <AddIcon /> },
   edit: { Icon: <EditIcon /> },
-  delete: { Icon: <DeleteIcon /> },
 }
 
-const ModalForm = ({ id, action, variant, text }) => {
+const ModalForm = ({ id, action, variant, textBtn }) => {
   const [open, setOpen] = React.useState(false)
 
   const handleClickOpen = () => {
@@ -31,7 +29,7 @@ const ModalForm = ({ id, action, variant, text }) => {
     <>
       <Button data-id={id} value={action} variant={variant} onClick={handleClickOpen}>
         {modalForm[action].Icon}
-        {text}
+        {textBtn}
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{action.toUpperCase()}</DialogTitle>

@@ -10,6 +10,7 @@ import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
 import OpenIcon from '@mui/icons-material/OpenInNew'
 
+import ModalAlert from '../ModalAlert'
 import ModalForm from '../ModalForm'
 
 import './styles.scss'
@@ -155,11 +156,11 @@ const createDataFactory = {
   orders: createOrdersData,
 }
 
-function createActions(id) {
+function createActions(id, text) {
   return (
     <>
       <ModalForm action="edit" id={id} variant="text" />
-      <ModalForm action="delete" id={id} variant="text" />
+      <ModalAlert action="delete" id={id} textDialog={text} variant="text" />
     </>
   )
 }
@@ -174,19 +175,22 @@ function createViewAction(id) {
 
 //DTOS
 function createProductsData({ id, category, name, price, stock }) {
-  let actions = createActions(id)
+  const text = `the product with id: ${id}`
+  let actions = createActions(id, text)
 
   return { id, category, name, price, stock, actions }
 }
 
 function createCategoriesData({ id, name }) {
-  let actions = createActions(id)
+  const text = `the category with id: ${id}`
+  let actions = createActions(id, text)
 
   return { id, name, actions }
 }
 
 function createUsersData({ id, email, name, role }) {
-  let actions = createActions(id)
+  const text = `the user with id: ${id}`
+  let actions = createActions(id, text)
 
   return { id, email, name, role, actions }
 }
