@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { ProductsProvider } from './context/ProductsContext'
+import { UserProvider } from './context/UserContext'
 import AppRouter from './routes/AppRouter'
 
 function App() {
   return (
-    <ProductsProvider>
+    <UserProvider>
       <AppRouter />
-    </ProductsProvider>
+    </UserProvider>
   )
 }
 
