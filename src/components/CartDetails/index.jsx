@@ -13,7 +13,7 @@ import './styles.scss'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import DeleteIcon from '@mui/icons-material/DeleteForever'
 
-import CartQty from '../CartQty'
+import CartDetailsQty from '../CartDetailsQty'
 
 /* cartServer = [
   { id: 1, qty: 2 },
@@ -78,7 +78,7 @@ const CartDetails = () => {
       img: product.img,
       name: product.name,
       price: product.price,
-      qty: <CartQty item={item} />,
+      qty: <CartDetailsQty item={item} />,
       subtotal,
     }
   }

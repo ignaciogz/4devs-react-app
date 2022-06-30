@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
-import Badge from '@mui/material/Badge'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
@@ -13,11 +12,12 @@ import MenuItem from '@mui/material/MenuItem'
 import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import PersonIcon from '@mui/icons-material/PersonOutline'
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'
 import LogoutIcon from '@mui/icons-material/LogoutRounded'
+
+import Cart from '../Cart'
 
 import './styles.scss'
 
@@ -175,9 +175,7 @@ const ResponsiveAppBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <IconButton aria-label="show new notifications" color="inherit" size="large">
-              <Badge badgeContent={2}>
-                <ShoppingCartIcon />
-              </Badge>
+              <Cart itemsQty={2} />
             </IconButton>
             <IconButton aria-label="show new notifications" color="inherit" size="large">
               <PersonIcon />
