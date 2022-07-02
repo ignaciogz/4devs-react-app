@@ -11,9 +11,9 @@ import './styles.scss'
 import ProductCard from '../ProductCard'
 import ProductFilters from '../ProductFilters'
 
-const res = await fetch('/mydata.json')
-const data = await res.json()
-const products = data.products
+const res = await fetch(`${import.meta.env.VITE_API_URL}/products/`)
+const dataJSON = await res.json()
+const products = dataJSON.data.products
 
 const categories = ['Accessories', 'Ergonomic', 'Standing desk']
 const brands = ['4DEVS', 'Crazy solutions', 'X Factory']

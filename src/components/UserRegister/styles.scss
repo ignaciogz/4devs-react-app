@@ -14,14 +14,22 @@ section.register {
         display: flex;
         flex-direction: column;
 
-        button {
+        label[for="Avatar"]{
+            display: flex;
+            align-items: center;
+            column-gap: .5rem;
+            color: grey;
+            user-select: none;
+        }
+
+        .formBtn {
             column-gap: .4rem;
             background-color: var(--black);
             border-radius: initial;
             width: 100%;
         }
 
-        button:hover {
+        .formBtn:hover {
             background-color: var(--light-blue);
             color: var(--black);
         }
