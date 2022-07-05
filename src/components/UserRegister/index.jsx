@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -80,7 +80,7 @@ const UserRegister = () => {
               helperText={emailExist ? 'email already exists' : null}
               label="Email"
               minLength="5"
-              name="username"
+              name="email"
               type="email"
               variant="standard"
               onKeyUp={handleKeyUp}
@@ -110,8 +110,11 @@ const UserRegister = () => {
             </label>
             <Button className="formBtn" size="large" type="submit" variant="contained">
               <AppRegistrationIcon />
-              SIGNUP
+              SIGN UP
             </Button>
+            <Box component="div">
+              Have an account? <Link to="/login">Log In</Link>
+            </Box>
           </Box>
         </Grid>
       </Grid>
