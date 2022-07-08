@@ -10,9 +10,8 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     if (user.logged && !dataLoaded) {
-      Service.get().then((data) => {
-        console.log(data)
-        setUser({ ...user, ...data.user })
+      Service.get().then((result) => {
+        setUser({ ...user, ...result.data.user })
         setDataLoaded(true)
       })
     }

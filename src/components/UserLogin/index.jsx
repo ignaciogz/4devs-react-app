@@ -21,7 +21,6 @@ const UserLogin = () => {
   const { initUserSession, login } = useLogin()
 
   const handleSubmit = async (event) => {
-    debugger
     event.preventDefault()
 
     const success = await login({

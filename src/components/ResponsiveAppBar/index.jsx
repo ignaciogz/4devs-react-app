@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
@@ -18,76 +19,67 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'
 import LogoutIcon from '@mui/icons-material/LogoutRounded'
 
 import Cart from '../Cart'
+import MenuBtnLink from '../MenuLink/MenuBtnLink'
+import MobileMenuTextLink from '../MenuLink/MobileMenuTextLink'
+import useLogin from '../../hooks/useLogin'
+import useUser from '../../hooks/useUser'
 
 import './styles.scss'
 
-const pages = [
-  { text: 'Home', href: '/', type: 'router' },
-  { text: 'About Us', href: '#about-us', type: 'anchor' },
-  { text: 'Contact Us', href: '/', type: 'router' },
-]
-
-const settings = [
-  { text: 'Admin', icon: AdminPanelSettingsIcon },
-  { text: 'Profile', icon: ManageAccountsIcon },
-  { text: 'Logout', icon: LogoutIcon },
-]
-
 const ResponsiveAppBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null)
-  const [anchorElUser, setAnchorElUser] = React.useState(null)
+  const { isLogged } = useLogin()
+  const { user, isAdmin } = useUser()
+  const [anchorElNav, setAnchorElNav] = useState(null)
+  const [anchorElUser, setAnchorElUser] = useState(null)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
-  }
-
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget)
   }
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
   }
 
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget)
+  }
+
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
   }
 
-  const GetMenuLink = ({ page }) => {
-    const styles = { my: 2, color: 'white', display: 'block' }
+  const pages = [
+    {
+      text: 'Home',
+      href: '/',
+      type: 'router',
+      handlers: {
+        click: handleCloseNavMenu,
+      },
+    },
+    {
+      text: 'About Us',
+      href: '#about-us',
+      type: 'anchor',
+      handlers: {
+        click: handleCloseNavMenu,
+      },
+    },
+    {
+      text: 'Contact Us',
+      href: '/',
+      type: 'router',
+      handlers: {
+        click: handleCloseNavMenu,
+      },
+    },
+  ]
 
-    switch (page.type) {
-      case 'anchor':
-        return (
-          <Button component="a" href={page.href} sx={styles} onClick={handleCloseNavMenu}>
-            {page.text}
-          </Button>
-        )
-      case 'router':
-        return (
-          <Button component={Link} sx={styles} to={page.href} onClick={handleCloseNavMenu}>
-            {page.text}
-          </Button>
-        )
-    }
-  }
-
-  const GetMobileMenuLink = ({ page }) => {
-    switch (page.type) {
-      case 'anchor':
-        return (
-          <Typography component="a" href={page.href} textAlign="center">
-            {page.text}
-          </Typography>
-        )
-      case 'router':
-        return (
-          <Typography component={Link} textAlign="center" to={page.href}>
-            {page.text}
-          </Typography>
-        )
-    }
-  }
+  const settings = [
+    { text: 'Admin', icon: AdminPanelSettingsIcon },
+    { text: 'Profile', icon: ManageAccountsIcon },
+    { text: 'Logout', icon: LogoutIcon },
+  ]
 
   return (
     <AppBar className="navbar" position="static">
@@ -142,7 +134,7 @@ const ResponsiveAppBar = () => {
             >
               {pages.map((page, index) => (
                 <MenuItem key={index} onClick={handleCloseNavMenu}>
-                  <GetMobileMenuLink className="prueba" page={page} />
+                  <MobileMenuTextLink page={page} />
                 </MenuItem>
               ))}
             </Menu>
@@ -169,22 +161,42 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page, index) => (
-              <GetMenuLink key={index} page={page} />
+              <MenuBtnLink key={index} page={page} />
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <IconButton aria-label="show new notifications" color="inherit" size="large">
+            <IconButton
+              aria-label="show shopping cart"
+              color="inherit"
+              component={Link}
+              size="large"
+              to="/cart"
+            >
               <Cart itemsQty={2} />
             </IconButton>
-            <IconButton aria-label="show new notifications" color="inherit" size="large">
-              <PersonIcon />
-            </IconButton>
-            <Tooltip title="Open settings">
-              <IconButton sx={{ p: 0 }} onClick={handleOpenUserMenu}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+            {isLogged ? (
+              <Tooltip title="Open settings">
+                <IconButton
+                  aria-label="open user settings"
+                  sx={{ p: 0 }}
+                  onClick={handleOpenUserMenu}
+                >
+                  <Avatar alt={user.name} src={`http://localhost:8080/img/avatars/${user.img}`} />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <IconButton
+                aria-label="go to login page"
+                color="inherit"
+                component={Link}
+                size="large"
+                to="/login"
+              >
+                <PersonIcon />
               </IconButton>
-            </Tooltip>
+            )}
+
             <Menu
               keepMounted
               anchorEl={anchorElUser}
@@ -201,12 +213,19 @@ const ResponsiveAppBar = () => {
               }}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting, index) => (
-                <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Box component={setting.icon} />
-                  <Typography textAlign="center">{setting.text}</Typography>
-                </MenuItem>
-              ))}
+              {isLogged &&
+                settings.map((setting, index) => (
+                  <Box key={index}>
+                    {!isAdmin && setting.text === 'Admin' ? (
+                      false
+                    ) : (
+                      <MenuItem onClick={handleCloseUserMenu}>
+                        <Box component={setting.icon} />
+                        <Typography textAlign="center">{setting.text}</Typography>
+                      </MenuItem>
+                    )}
+                  </Box>
+                ))}
             </Menu>
           </Box>
         </Toolbar>
