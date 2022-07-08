@@ -11,6 +11,7 @@ const useNotificator = (initialValue = false) => {
   const closeNotificator = () => setIsOpen(false)
 
   const setNotificator = (severity, text) => {
+    openNotificator()
     setText(text)
     setSeverity(severity)
   }
@@ -21,7 +22,6 @@ const useNotificator = (initialValue = false) => {
     isOpen,
     text,
     severity,
-    openNotificator,
     closeNotificator,
     stopProp,
     setNotificator,

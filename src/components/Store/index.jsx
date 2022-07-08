@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import FormControl from '@mui/material/FormControl'
@@ -11,15 +12,11 @@ import './styles.scss'
 import ProductCard from '../ProductCard'
 import ProductFilters from '../ProductFilters'
 
-const res = await fetch(`${import.meta.env.VITE_API_URL}/products/`)
-const dataJSON = await res.json()
-const products = dataJSON.data.products
-
 const categories = ['Accessories', 'Ergonomic', 'Standing desk']
 const brands = ['4DEVS', 'Crazy solutions', 'X Factory']
 
-const Store = () => {
-  const [order, setOrder] = React.useState('')
+const Store = ({ data }) => {
+  const [order, setOrder] = useState('')
 
   const handleChange = (event) => {
     setOrder(event.target.value)
@@ -53,8 +50,7 @@ const Store = () => {
           </Box>
 
           <Grid container className="products-grid" spacing={1}>
-            {products.length > 0 &&
-              products.map((item, index) => <ProductCard key={index} {...item} />)}
+            {data.length > 0 && data.map((item, index) => <ProductCard key={index} {...item} />)}
           </Grid>
         </Grid>
       </Grid>

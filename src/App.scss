@@ -23,6 +23,11 @@ a {
   margin: 1rem 0 !important;
 }
 
+.loader {
+  display: flex; 
+  justify-content: center;
+}
+
 @mixin addToCartBtn() {
   background-color: var(--black);
     

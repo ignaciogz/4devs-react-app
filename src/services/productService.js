@@ -1,10 +1,11 @@
+import RequestService from './requestService'
+
 class ProductService {
+  static API_URL = `${import.meta.env.VITE_API_URL}/products`
+
   static async getAll() {
     try {
-      const res = await fetch('http://localhost:8080/api/products')
-      const data = await res.json()
-
-      return data
+      return await RequestService.GET(`${ProductService.API_URL}`)
     } catch (err) {
       console.log(err)
     }
@@ -12,10 +13,7 @@ class ProductService {
 
   static async get(id) {
     try {
-      const res = await fetch(`http://localhost:8080/api/products/${id}`)
-      const data = await res.json()
-
-      return data
+      return await RequestService.GET(`${ProductService.API_URL}/${id}`)
     } catch (err) {
       console.log(err)
     }

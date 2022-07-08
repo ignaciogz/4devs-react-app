@@ -11,39 +11,33 @@ import FacebookIcon from '@mui/icons-material/FacebookRounded'
 
 import useNotificator from '../../hooks/useNotificator'
 import Notificator from '../Notificator'
+import useLogin from '../../hooks/useLogin'
 
 import './styles.scss'
 
 const UserLogin = () => {
   let navigate = useNavigate()
-  const { isOpen, severity, text, openNotificator, closeNotificator, setNotificator } =
-    useNotificator()
+  const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
+  const { initUserSession, login } = useLogin()
 
   const handleSubmit = async (event) => {
+    debugger
     event.preventDefault()
 
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: event.target.email.value,
-        password: event.target.password.value,
-      }),
+    const success = await login({
+      username: event.target.email.value,
+      password: event.target.password.value,
     })
-    const dataJSON = await res.json()
 
-    if (dataJSON.success) {
-      openNotificator()
-      setNotificator('success', 'You will be redirected in 5 seconds...')
+    if (success) {
+      setNotificator('success', 'Redirected in 5 seconds...')
       setTimeout(() => {
         closeNotificator()
-        navigate(`/`)
-      }, 5000)
+        initUserSession()
+        navigate('/')
+      }, 6000)
     } else {
-      openNotificator()
-      setNotificator('error', 'Invalid user or password.')
+      setNotificator('error', 'Invalid user or password')
     }
   }
 

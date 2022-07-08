@@ -1,10 +1,11 @@
+import RequestService from './requestService'
+
 class UserService {
+  static API_URL = import.meta.env.VITE_API_URL
+
   static async get() {
     try {
-      const res = await fetch('http://localhost:8080/api/users')
-      const data = await res.json()
-
-      return data
+      return await RequestService.GET(`${UserService.API_URL}/users`)
     } catch (err) {
       console.log(err)
     }

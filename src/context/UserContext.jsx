@@ -5,13 +5,18 @@ import Service from '../services/userService'
 const UserContext = createContext({})
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState([])
+  const [user, setUser] = useState({ logged: false })
+  const [dataLoaded, setDataLoaded] = useState(false)
 
   useEffect(() => {
-    Service.get().then((data) => {
-      setUser(data)
-    })
-  }, [])
+    if (user.logged && !dataLoaded) {
+      Service.get().then((data) => {
+        console.log(data)
+        setUser({ ...user, ...data.user })
+        setDataLoaded(true)
+      })
+    }
+  }, [user, dataLoaded])
 
   return (
     <UserContext.Provider
