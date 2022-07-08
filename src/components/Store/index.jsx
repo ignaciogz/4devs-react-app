@@ -50,7 +50,8 @@ const Store = ({ data }) => {
           </Box>
 
           <Grid container className="products-grid" spacing={1}>
-            {data.length > 0 && data.map((item, index) => <ProductCard key={index} {...item} />)}
+            {data.length > 0 &&
+              data.map((item, index) => item.stock > 0 && <ProductCard key={index} {...item} />)}
           </Grid>
         </Grid>
       </Grid>
