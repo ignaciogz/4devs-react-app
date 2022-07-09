@@ -2,32 +2,36 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 import Button from '@mui/material/Button'
 
-const MenuBtnLink = ({ page }) => {
-  const styles = { my: 2, color: 'white', display: 'block' }
+const getHandler = (handlersObj, event) => {
+  return handlersObj && handlersObj.hasOwnProperty(event) ? handlersObj[event] : null
+}
 
-  switch (page.type) {
+const MenuBtnLink = ({ link }) => {
+  const styles = { my: 1, color: 'white', display: 'block' }
+
+  switch (link.type) {
     case 'anchor':
       return (
         <Button
-          aria-label={`go to ${page.text}`}
+          aria-label={`go to ${link.text}`}
           component="a"
-          href={page.href}
+          href={link.href}
           sx={styles}
-          onClick={page.handlers.click}
+          onClick={getHandler(link.handlers, 'click')}
         >
-          {page.text}
+          {link.text}
         </Button>
       )
     case 'router':
       return (
         <Button
-          aria-label={`go to ${page.text}`}
+          aria-label={`go to ${link.text}`}
           component={Link}
           sx={styles}
-          to={page.href}
-          onClick={page.handlers.click}
+          to={link.href}
+          onClick={getHandler(link.handlers, 'click')}
         >
-          {page.text}
+          {link.text}
         </Button>
       )
   }

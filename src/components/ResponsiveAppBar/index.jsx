@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
@@ -13,14 +12,11 @@ import MenuItem from '@mui/material/MenuItem'
 import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
-import PersonIcon from '@mui/icons-material/PersonOutline'
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'
-import LogoutIcon from '@mui/icons-material/LogoutRounded'
 
 import Cart from '../Cart'
+import Icon from '../Icon'
 import MenuBtnLink from '../MenuLink/MenuBtnLink'
-import MobileMenuTextLink from '../MenuLink/MobileMenuTextLink'
+import MenuTextLink from '../MenuLink/MenuTextLink'
 import useLogin from '../../hooks/useLogin'
 import useUser from '../../hooks/useUser'
 
@@ -48,7 +44,7 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null)
   }
 
-  const pages = [
+  const principalMenuLinks = [
     {
       text: 'Home',
       href: '/',
@@ -75,10 +71,10 @@ const ResponsiveAppBar = () => {
     },
   ]
 
-  const settings = [
-    { text: 'Admin', icon: AdminPanelSettingsIcon },
-    { text: 'Profile', icon: ManageAccountsIcon },
-    { text: 'Logout', icon: LogoutIcon },
+  const settingsLinks = [
+    { text: 'Admin', type: 'router', href: '/cpanel', icon: 'AdminPanelSettingsIcon' },
+    { text: 'Profile', type: 'router', href: '/profile', icon: 'ManageAccountsIcon' },
+    { text: 'Logout', type: 'anchor', href: '/logout', icon: 'LogoutIcon' },
   ]
 
   return (
@@ -132,9 +128,9 @@ const ResponsiveAppBar = () => {
               }}
               onClose={handleCloseNavMenu}
             >
-              {pages.map((page, index) => (
+              {principalMenuLinks.map((mobileMenuLink, index) => (
                 <MenuItem key={index} onClick={handleCloseNavMenu}>
-                  <MobileMenuTextLink page={page} />
+                  <MenuTextLink link={mobileMenuLink} />
                 </MenuItem>
               ))}
             </Menu>
@@ -160,8 +156,8 @@ const ResponsiveAppBar = () => {
             4DEVS
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page, index) => (
-              <MenuBtnLink key={index} page={page} />
+            {principalMenuLinks.map((menuLink, index) => (
+              <MenuBtnLink key={index} link={menuLink} />
             ))}
           </Box>
 
@@ -193,7 +189,7 @@ const ResponsiveAppBar = () => {
                 size="large"
                 to="/login"
               >
-                <PersonIcon />
+                <Icon name="PersonIcon" />
               </IconButton>
             )}
 
@@ -214,14 +210,13 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {isLogged &&
-                settings.map((setting, index) => (
+                settingsLinks.map((settingLink, index) => (
                   <Box key={index}>
-                    {!isAdmin && setting.text === 'Admin' ? (
+                    {!isAdmin && settingLink.text === 'Admin' ? (
                       false
                     ) : (
                       <MenuItem onClick={handleCloseUserMenu}>
-                        <Box component={setting.icon} />
-                        <Typography textAlign="center">{setting.text}</Typography>
+                        <MenuTextLink link={settingLink} />
                       </MenuItem>
                     )}
                   </Box>
