@@ -1,13 +1,16 @@
 import React from 'react'
 
+import { AuthProvider } from './context/AuthContext'
 import { UserProvider } from './context/UserContext'
 import AppRouter from './routes/AppRouter'
 
 function App() {
   return (
-    <UserProvider>
-      <AppRouter />
-    </UserProvider>
+    <AuthProvider>
+      <UserProvider>
+        <AppRouter />
+      </UserProvider>
+    </AuthProvider>
   )
 }
 

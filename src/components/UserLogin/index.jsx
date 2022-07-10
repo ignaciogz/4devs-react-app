@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -11,14 +11,26 @@ import FacebookIcon from '@mui/icons-material/FacebookRounded'
 
 import useNotificator from '../../hooks/useNotificator'
 import Notificator from '../Notificator'
-import useLogin from '../../hooks/useLogin'
+import useAuth from '../../hooks/useAuth'
 
 import './styles.scss'
 
 const UserLogin = () => {
-  let navigate = useNavigate()
+  const navigate = useNavigate()
   const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
-  const { initUserSession, login } = useLogin()
+  const { checkLoggedIn, login } = useAuth()
+
+  // START - Auth
+  const isAuth = async () => {
+    const loggedIn = await checkLoggedIn()
+
+    loggedIn && navigate('/')
+  }
+
+  useEffect(() => {
+    isAuth()
+  }, [])
+  // END - Auth
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -32,7 +44,6 @@ const UserLogin = () => {
       setNotificator('success', 'Redirected in 5 seconds...')
       setTimeout(() => {
         closeNotificator()
-        initUserSession()
         navigate('/')
       }, 6000)
     } else {

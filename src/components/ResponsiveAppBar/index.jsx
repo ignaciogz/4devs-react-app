@@ -17,13 +17,13 @@ import Cart from '../Cart'
 import Icon from '../Icon'
 import MenuBtnLink from '../MenuLink/MenuBtnLink'
 import MenuTextLink from '../MenuLink/MenuTextLink'
-import useLogin from '../../hooks/useLogin'
+import useAuth from '../../hooks/useAuth'
 import useUser from '../../hooks/useUser'
 
 import './styles.scss'
 
 const ResponsiveAppBar = () => {
-  const { isLogged } = useLogin()
+  const { isLogged } = useAuth()
   const { user, isAdmin } = useUser()
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
@@ -63,7 +63,7 @@ const ResponsiveAppBar = () => {
     },
     {
       text: 'Contact Us',
-      href: '/',
+      href: '/login',
       type: 'router',
       handlers: {
         click: handleCloseNavMenu,

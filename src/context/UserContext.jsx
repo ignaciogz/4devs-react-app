@@ -1,27 +1,18 @@
-import React, { createContext, useEffect, useState } from 'react'
-
-import Service from '../services/userService'
+import React, { createContext, useState } from 'react'
 
 const UserContext = createContext({})
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({ logged: false })
-  const [dataLoaded, setDataLoaded] = useState(false)
-
-  useEffect(() => {
-    if (user.logged && !dataLoaded) {
-      Service.get().then((result) => {
-        setUser({ ...user, ...result.data.user })
-        setDataLoaded(true)
-      })
-    }
-  }, [user, dataLoaded])
+  const [user, setUser] = useState(null)
+  const [userDataLoaded, setUserDataLoaded] = useState(false)
 
   return (
     <UserContext.Provider
       value={{
         user,
         setUser,
+        userDataLoaded,
+        setUserDataLoaded,
       }}
     >
       {children}

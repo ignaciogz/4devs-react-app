@@ -1,14 +1,21 @@
 import { useContext } from 'react'
 
 import UserContext from '../context/UserContext'
-//import Service from '../services/userService'
+import Service from '../services/userService'
 
 const useUser = () => {
-  const { user } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
+
+  const getUserData = async () => {
+    await Service.get().then((result) => {
+      result.success && setUser({ ...result.data.user })
+    })
+  }
 
   return {
-    isAdmin: Boolean(user.role === 'ADMIN'),
     user,
+    isAdmin: Boolean(user && user.role === 'ADMIN'),
+    getUserData,
   }
 }
 

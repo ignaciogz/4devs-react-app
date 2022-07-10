@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import '../../App.scss'
 
@@ -11,8 +11,15 @@ import StoreContainer from '../../components/StoreContainer'
 import Commitments from '../../components/Commitments'
 import Slider from '../../components/Slider'
 import ScrollTo from '../../components/ScrollTo'
+import useAuth from '../../hooks/useAuth'
 
 const Home = (props) => {
+  const { checkLoggedIn } = useAuth()
+
+  useEffect(() => {
+    checkLoggedIn()
+  }, [])
+
   return (
     <>
       <ResponsiveAppBar />

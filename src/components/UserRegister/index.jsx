@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
@@ -9,6 +8,8 @@ import TextField from '@mui/material/TextField'
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 import PhotoCamera from '@mui/icons-material/PhotoCamera'
 
+import useAuth from '../../hooks/useAuth'
+
 import './styles.scss'
 
 const Input = styled('input')({
@@ -16,8 +17,21 @@ const Input = styled('input')({
 })
 
 const UserRegister = () => {
-  let navigate = useNavigate()
+  const navigate = useNavigate()
   const [emailExist, setEmailExist] = useState(false)
+  const { checkLoggedIn } = useAuth()
+
+  // START - Auth
+  const isAuth = async () => {
+    const loggedIn = await checkLoggedIn()
+
+    loggedIn && navigate('/')
+  }
+
+  useEffect(() => {
+    isAuth()
+  }, [])
+  // END - Auth
 
   const handleSubmit = async (event) => {
     event.preventDefault()
