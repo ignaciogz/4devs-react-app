@@ -9,9 +9,9 @@ import TextField from '@mui/material/TextField'
 import LoginIcon from '@mui/icons-material/Login'
 import FacebookIcon from '@mui/icons-material/FacebookRounded'
 
+import useAuth from '../../hooks/useAuth'
 import useNotificator from '../../hooks/useNotificator'
 import Notificator from '../Notificator'
-import useAuth from '../../hooks/useAuth'
 
 import './styles.scss'
 

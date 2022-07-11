@@ -23,6 +23,14 @@ class AuthService {
       console.log(err)
     }
   }
+
+  static async register(formData) {
+    try {
+      return await RequestService.POST(`${AuthService.API_URL}/register`, formData, true)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 }
 
 export default AuthService

@@ -37,5 +37,13 @@ section.register {
         div {
             width: 100%;
         }
+
+        .avatarError {
+            color: #d32f2f;
+        }
+
+        .avatarNoError {
+            color: grey
+        }
     }
 }

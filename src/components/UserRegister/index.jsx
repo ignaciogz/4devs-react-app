@@ -8,7 +8,10 @@ import TextField from '@mui/material/TextField'
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 import PhotoCamera from '@mui/icons-material/PhotoCamera'
 
+import Notificator from '../Notificator'
 import useAuth from '../../hooks/useAuth'
+import useNotificator from '../../hooks/useNotificator'
+import useValidator from '../../hooks/useValidator'
 
 import './styles.scss'
 
@@ -17,9 +20,13 @@ const Input = styled('input')({
 })
 
 const UserRegister = () => {
+  const { checkLoggedIn, register } = useAuth()
   const navigate = useNavigate()
-  const [emailExist, setEmailExist] = useState(false)
-  const { checkLoggedIn } = useAuth()
+  const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
+  let [emailError, setEmailError] = useState(false)
+  let [passwordError, setPasswordError] = useState(false)
+  let [avatarError, setAvatarError] = useState(false)
+  const { validateResults, validateRegister } = useValidator()
 
   // START - Auth
   const isAuth = async () => {
@@ -37,35 +44,26 @@ const UserRegister = () => {
     event.preventDefault()
     let formData = new FormData(event.target)
 
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
-      method: 'POST',
-      body: formData,
-    })
-    const dataJSON = await res.json()
+    const validation = await validateRegister(formData)
 
-    console.log('ENVIADO !', dataJSON.success)
-    if (dataJSON.success) navigate(`/`)
-  }
+    if (validation.isValid) {
+      setNotificator('info', 'Loading...')
+      const success = await register(formData)
 
-  const handleKeyUp = async (event) => {
-    let value = event.target.value
-
-    if (value.length > 5) {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/users/check`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: value,
-        }),
-      })
-      const dataJSON = await res.json()
-
-      console.log(`${value}`, dataJSON.data.user.exist)
-      setEmailExist(dataJSON.data.user.exist)
+      if (success) {
+        setNotificator('success', 'Redirected in 5 seconds...')
+        setTimeout(() => {
+          closeNotificator()
+          navigate('/')
+        }, 10000)
+      } else {
+        setNotificator('error', 'Registration failed')
+      }
     } else {
-      setEmailExist(false)
+      setNotificator('error', 'Check errors')
+      setEmailError(!validation.results.email.isValid)
+      setPasswordError(!validation.results.password.isValid)
+      setAvatarError(!validation.results.avatar.isValid)
     }
   }
 
@@ -90,18 +88,19 @@ const UserRegister = () => {
           >
             <TextField
               required
-              error={emailExist}
-              helperText={emailExist ? 'email already exists' : null}
+              error={emailError}
+              helperText={emailError ? validateResults.email.text : null}
               label="Email"
               minLength="5"
               name="email"
               type="email"
               variant="standard"
-              onKeyUp={handleKeyUp}
             />
             <TextField required label="Name" name="name" variant="standard" />
             <TextField
               required
+              error={passwordError}
+              helperText={passwordError ? validateResults.password.text : null}
               label="Password"
               minLength="5"
               name="password"
@@ -120,7 +119,7 @@ const UserRegister = () => {
                 <PhotoCamera />
                 Upload Avatar
               </Button>
-              <span>*required</span>
+              <span className={avatarError ? 'avatarError' : 'avatarNoError'}>*required</span>
             </label>
             <Button className="formBtn" size="large" type="submit" variant="contained">
               <AppRegistrationIcon />
@@ -132,6 +131,14 @@ const UserRegister = () => {
           </Box>
         </Grid>
       </Grid>
+      {isOpen && (
+        <Notificator
+          closeNotificator={closeNotificator}
+          isOpen={isOpen}
+          severity={severity}
+          text={text}
+        />
+      )}
     </Box>
   )
 }

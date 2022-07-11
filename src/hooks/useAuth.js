@@ -55,11 +55,26 @@ const useAuth = () => {
     }
   }
 
+  const register = async (formData) => {
+    try {
+      const result = await Service.register(formData)
+
+      if (result.success) {
+        await loginUserNow()
+      }
+
+      return result.success
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return {
     isAuthAdmin: Boolean(isLogged && isAdmin),
     isLogged: Boolean(isLogged),
     checkLoggedIn,
     login,
+    register,
     logout,
   }
 }

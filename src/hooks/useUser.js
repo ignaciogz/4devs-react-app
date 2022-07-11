@@ -6,15 +6,26 @@ import Service from '../services/userService'
 const useUser = () => {
   const { user, setUser } = useContext(UserContext)
 
+  const checkUserExist = async ({ email }) => {
+    try {
+      const result = await Service.checkUserExist({ email })
+
+      return result.data.user.exist
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const getUserData = async () => {
-    await Service.get().then((result) => {
-      result.success && setUser({ ...result.data.user })
-    })
+    const result = await Service.get()
+
+    result.success && setUser({ ...result.data.user })
   }
 
   return {
     user,
     isAdmin: Boolean(user && user.role === 'ADMIN'),
+    checkUserExist,
     getUserData,
   }
 }
