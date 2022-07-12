@@ -1,7 +1,7 @@
 import * as React from 'react'
 import TextField from '@mui/material/TextField'
 
-const CartDetailsQty = ({ item }) => {
+const CartDetailQty = ({ item }) => {
   const [units, setUnits] = React.useState(item.qty)
   const handleChange = (event) => {
     setUnits(event.target.value)
@@ -24,4 +24,4 @@ const CartDetailsQty = ({ item }) => {
   )
 }
 
-export default CartDetailsQty
+export default CartDetailQty

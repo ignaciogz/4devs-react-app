@@ -11,6 +11,14 @@ class CartService {
     }
   }
 
+  static async getCartDetail() {
+    try {
+      return await RequestService.GET(`${CartService.API_URL}/detail`)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   static async add({ id_prod, qty }) {
     try {
       const data = {
