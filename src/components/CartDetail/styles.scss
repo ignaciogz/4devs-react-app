@@ -38,6 +38,12 @@ section.cart-details {
         }
     }
 
+    .cart-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     .cart-details-footer {
         display: flex;
         justify-content: flex-end;

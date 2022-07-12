@@ -53,7 +53,13 @@ const useAuth = () => {
     event.preventDefault()
     const result = await Service.logout()
 
-    result.success && logout()
+    if (result.success) {
+      logout()
+
+      /* setTimeout(() => {
+        navigate('/')
+      }, 2000) */
+    }
   }
 
   const login = async ({ username, password }) => {

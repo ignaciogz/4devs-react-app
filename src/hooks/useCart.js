@@ -32,7 +32,7 @@ const useCart = () => {
   const getCartDetail = async () => {
     const result = await Service.getCartDetail()
 
-    result.success && setCartDetail(result.data.cartDetail)
+    result.success && setCartDetail(result.data.detail)
 
     return result.success
   }

@@ -20,7 +20,7 @@ const Input = styled('input')({
 })
 
 const UserRegister = () => {
-  const { checkLoggedIn, register } = useAuth()
+  const { isLogged, register } = useAuth()
   const navigate = useNavigate()
   const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
   let [emailError, setEmailError] = useState(false)
@@ -28,8 +28,14 @@ const UserRegister = () => {
   let [avatarError, setAvatarError] = useState(false)
   const { validateResults, validateRegister } = useValidator()
 
+  // ↓ ****** START - AUTH ****** ↓
+  useEffect(() => {
+    isLogged && navigate('/')
+  }, [navigate])
+  // ↑ ****** END - AUTH ****** ↑
+
   // START - Auth
-  const isAuth = async () => {
+  /* const isAuth = async () => {
     const loggedIn = await checkLoggedIn()
 
     loggedIn && navigate('/')
@@ -37,7 +43,7 @@ const UserRegister = () => {
 
   useEffect(() => {
     isAuth()
-  }, [])
+  }, []) */
   // END - Auth
 
   const handleSubmit = async (event) => {

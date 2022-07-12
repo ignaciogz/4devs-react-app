@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -9,17 +10,27 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-
-import './styles.scss'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import DeleteIcon from '@mui/icons-material/DeleteForever'
 
+import './styles.scss'
+
+import empty from '../../assets/img/empty.png'
 import CartDetailQty from '../CartDetailQty'
+import useAuth from '../../hooks/useAuth'
 import useCart from '../../hooks/useCart'
 
 const CartDetail = () => {
-  const { cartDetail, getCartDetail } = useCart()
+  const navigate = useNavigate()
+  const { isLogged } = useAuth()
+  const { cart, cartDetail, getCartDetail } = useCart()
   const [loader, setLoader] = useState(true)
+
+  // ↓ ****** START - AUTH ****** ↓
+  useEffect(() => {
+    !isLogged && navigate('/')
+  }, [isLogged, navigate])
+  // ↑ ****** END - AUTH ****** ↑
 
   async function getDetail() {
     const success = await getCartDetail()
@@ -29,7 +40,7 @@ const CartDetail = () => {
 
   useEffect(() => {
     getDetail()
-  }, [])
+  }, [cart])
 
   function subtotalCol(item) {
     return item.product.price * item.qty
@@ -68,53 +79,61 @@ const CartDetail = () => {
       ) : (
         <Box>
           <h1>Shopping Cart</h1>
-          <TableContainer component={Paper}>
-            <Table aria-label="spanning table" sx={{ minWidth: 700 }}>
-              <TableHead>
-                <TableRow>
-                  <TableCell />
-                  <TableCell>Product</TableCell>
-                  <TableCell>Price</TableCell>
-                  <TableCell>Quantity</TableCell>
-                  <TableCell align="right">Subtotal</TableCell>
-                  <TableCell />
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {cartRows.length > 0 &&
-                  cartRows.map((row, index) => (
-                    <TableRow key={index} className="table-content">
-                      <TableCell align="center" size="small">
-                        <img alt={`image of ${row.name}`} src={row.img} />
-                      </TableCell>
-                      <TableCell>{row.name}</TableCell>
-                      <TableCell>{row.price}</TableCell>
-                      <TableCell>{row.qty}</TableCell>
-                      <TableCell align="right">${row.subtotal}</TableCell>
-                      <TableCell align="center">
-                        <Button variant="text">
-                          <DeleteIcon />
-                        </Button>
-                      </TableCell>
+          {cartRows.length > 0 ? (
+            <>
+              <TableContainer component={Paper}>
+                <Table aria-label="spanning table" sx={{ minWidth: 700 }}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell />
+                      <TableCell>Product</TableCell>
+                      <TableCell>Price</TableCell>
+                      <TableCell>Quantity</TableCell>
+                      <TableCell align="right">Subtotal</TableCell>
+                      <TableCell />
                     </TableRow>
-                  ))}
+                  </TableHead>
+                  <TableBody>
+                    {cartRows.map((row, index) => (
+                      <TableRow key={index} className="table-content">
+                        <TableCell align="center" size="small">
+                          <img alt={`image of ${row.name}`} src={row.img} />
+                        </TableCell>
+                        <TableCell>{row.name}</TableCell>
+                        <TableCell>{row.price}</TableCell>
+                        <TableCell>{row.qty}</TableCell>
+                        <TableCell align="right">${row.subtotal}</TableCell>
+                        <TableCell align="center">
+                          <Button variant="text">
+                            <DeleteIcon />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
 
-                <TableRow className="table-footer">
-                  <TableCell colSpan={4} />
-                  <TableCell align="right">
-                    <h2>TOTAL</h2>
-                  </TableCell>
-                  <TableCell align="right">${cartTotal}</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <Box className="cart-details-footer" component="div">
-            <Button className="checkout" size="large" variant="contained">
-              PROCEED TO CHECKOUT
-              <ArrowForwardIcon />
-            </Button>
-          </Box>
+                    <TableRow className="table-footer">
+                      <TableCell colSpan={4} />
+                      <TableCell align="right">
+                        <h2>TOTAL</h2>
+                      </TableCell>
+                      <TableCell align="right">${cartTotal}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <Box className="cart-details-footer" component="div">
+                <Button className="checkout" size="large" variant="contained">
+                  PROCEED TO CHECKOUT
+                  <ArrowForwardIcon />
+                </Button>
+              </Box>
+            </>
+          ) : (
+            <Box className="cart-empty">
+              <img alt="cart empty" src={empty} />
+              <h2>Your cart is empty</h2>
+            </Box>
+          )}
         </Box>
       )}
     </Box>

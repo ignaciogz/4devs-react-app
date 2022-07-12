@@ -18,19 +18,13 @@ import './styles.scss'
 const UserLogin = () => {
   const navigate = useNavigate()
   const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
-  const { checkLoggedIn, login } = useAuth()
+  const { isLogged, login } = useAuth()
 
-  // START - Auth
-  const isAuth = async () => {
-    const loggedIn = await checkLoggedIn()
-
-    loggedIn && navigate('/')
-  }
-
+  // ↓ ****** START - AUTH ****** ↓
   useEffect(() => {
-    isAuth()
-  }, [])
-  // END - Auth
+    isLogged && navigate('/')
+  }, [navigate])
+  // ↑ ****** END - AUTH ****** ↑
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -42,6 +36,7 @@ const UserLogin = () => {
 
     if (success) {
       setNotificator('success', 'Redirected in 5 seconds...')
+
       setTimeout(() => {
         closeNotificator()
         navigate('/')
