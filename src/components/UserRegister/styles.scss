@@ -20,6 +20,18 @@ section.register {
             column-gap: .5rem;
             color: grey;
             user-select: none;
+
+            span:last-child {
+                width: 115px;
+            }
+
+            .avatarError {
+                color: #d32f2f;
+            }
+    
+            .avatarNoError {
+                color: grey
+            }
         }
 
         .formBtn {
@@ -36,14 +48,6 @@ section.register {
 
         div {
             width: 100%;
-        }
-
-        .avatarError {
-            color: #d32f2f;
-        }
-
-        .avatarNoError {
-            color: grey
         }
     }
 }

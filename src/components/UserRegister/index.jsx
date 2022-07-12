@@ -82,7 +82,7 @@ const UserRegister = () => {
             method="post"
             role="form"
             sx={{
-              '& > :not(style)': { m: 1.2, width: '30ch' },
+              '& > :not(style)': { m: 1.2, width: '32ch' },
             }}
             onSubmit={handleSubmit}
           >
@@ -119,7 +119,7 @@ const UserRegister = () => {
                 <PhotoCamera />
                 Upload Avatar
               </Button>
-              <span className={avatarError ? 'avatarError' : 'avatarNoError'}>*required</span>
+              <span className={avatarError ? 'avatarError' : 'avatarNoError'}>Required *</span>
             </label>
             <Button className="formBtn" size="large" type="submit" variant="contained">
               <AppRegistrationIcon />
