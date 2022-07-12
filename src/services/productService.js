@@ -11,7 +11,7 @@ class ProductService {
     }
   }
 
-  static async get(id) {
+  static async getID(id) {
     try {
       return await RequestService.GET(`${ProductService.API_URL}/${id}`)
     } catch (err) {

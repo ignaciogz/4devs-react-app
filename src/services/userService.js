@@ -3,7 +3,7 @@ import RequestService from './requestService'
 class UserService {
   static API_URL = `${import.meta.env.VITE_API_URL}/users`
 
-  static async get() {
+  static async getUserLogged() {
     try {
       return await RequestService.GET(`${UserService.API_URL}`)
     } catch (err) {

@@ -4,15 +4,18 @@ import AuthContext from '../context/AuthContext'
 import UserContext from '../context/UserContext'
 import Service from '../services/authService'
 
+import useCart from './useCart'
 import useUser from './useUser'
 
 const useAuth = () => {
   const { isLogged, setIsLogged } = useContext(AuthContext)
   const { setUser, userDataLoaded, setUserDataLoaded } = useContext(UserContext)
   const { isAdmin, getUserData } = useUser()
+  const { getCart } = useCart()
 
   const loginUserNow = async () => {
     await getUserData()
+    await getCart()
     setUserDataLoaded(true)
     setIsLogged(true)
   }

@@ -18,12 +18,14 @@ import Icon from '../Icon'
 import MenuBtnLink from '../MenuLink/MenuBtnLink'
 import MenuTextLink from '../MenuLink/MenuTextLink'
 import useAuth from '../../hooks/useAuth'
+import useCart from '../../hooks/useCart'
 import useUser from '../../hooks/useUser'
 
 import './styles.scss'
 
 const ResponsiveAppBar = () => {
   const { isLogged } = useAuth()
+  const { getTotalItems } = useCart()
   const { user, isAdmin } = useUser()
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
@@ -169,7 +171,7 @@ const ResponsiveAppBar = () => {
               size="large"
               to="/cart"
             >
-              <Cart itemsQty={2} />
+              <Cart itemsQty={getTotalItems()} />
             </IconButton>
             {isLogged ? (
               <Tooltip title="Open settings">

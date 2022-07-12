@@ -17,7 +17,7 @@ const useUser = () => {
   }
 
   const getUserData = async () => {
-    const result = await Service.get()
+    const result = await Service.getUserLogged()
 
     result.success && setUser({ ...result.data.user })
   }
