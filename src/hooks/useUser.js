@@ -24,7 +24,7 @@ const useUser = () => {
 
   return {
     user,
-    isAdmin: Boolean(user && user.role === 'ADMIN'),
+    isAdmin: user && user.role === 'ADMIN',
     checkUserExist,
     getUserData,
   }

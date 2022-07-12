@@ -1,10 +1,14 @@
 import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
+import AuthContext from '../context/AuthContext'
 import CartContext from '../context/CartContext'
 import Service from '../services/cartService'
 
 const useCart = () => {
+  const navigate = useNavigate()
   const { cart, setCart } = useContext(CartContext)
+  const { isLogged } = useContext(AuthContext)
 
   const add = async ({ id_prod, qty }) => {
     try {
@@ -26,10 +30,13 @@ const useCart = () => {
 
   const getTotalItems = () => cart.reduce((a, b) => a + b.qty, 0)
 
+  const handleCartIconClick = () => (isLogged ? navigate('/cart') : navigate('/login'))
+
   return {
     add,
     getCart,
     getTotalItems,
+    handleCartIconClick,
   }
 }
 

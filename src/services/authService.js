@@ -24,6 +24,14 @@ class AuthService {
     }
   }
 
+  static async logout() {
+    try {
+      return await RequestService.GET(`${AuthService.API_URL}/logout`)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   static async register(formData) {
     try {
       return await RequestService.POST(`${AuthService.API_URL}/register`, formData, true)

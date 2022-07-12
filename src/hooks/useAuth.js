@@ -1,6 +1,8 @@
 import { useContext } from 'react'
+//import { useNavigate } from 'react-router-dom'
 
 import AuthContext from '../context/AuthContext'
+import CartContext from '../context/CartContext'
 import UserContext from '../context/UserContext'
 import Service from '../services/authService'
 
@@ -8,7 +10,9 @@ import useCart from './useCart'
 import useUser from './useUser'
 
 const useAuth = () => {
+  //const navigate = useNavigate()
   const { isLogged, setIsLogged } = useContext(AuthContext)
+  const { setCart } = useContext(CartContext)
   const { setUser, userDataLoaded, setUserDataLoaded } = useContext(UserContext)
   const { isAdmin, getUserData } = useUser()
   const { getCart } = useCart()
@@ -22,6 +26,7 @@ const useAuth = () => {
 
   const logout = () => {
     setUser(null)
+    setCart([])
     setUserDataLoaded(false)
     setIsLogged(false)
   }
@@ -42,6 +47,13 @@ const useAuth = () => {
 
       return true
     }
+  }
+
+  const handleLogout = async (event) => {
+    event.preventDefault()
+    const result = await Service.logout()
+
+    result.success && logout()
   }
 
   const login = async ({ username, password }) => {
@@ -73,12 +85,12 @@ const useAuth = () => {
   }
 
   return {
-    isAuthAdmin: Boolean(isLogged && isAdmin),
-    isLogged: Boolean(isLogged),
+    isAuthAdmin: isLogged && isAdmin,
+    isLogged,
     checkLoggedIn,
+    handleLogout,
     login,
     register,
-    logout,
   }
 }
 

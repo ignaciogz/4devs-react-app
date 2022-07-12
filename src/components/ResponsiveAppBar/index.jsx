@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
@@ -24,8 +23,8 @@ import useUser from '../../hooks/useUser'
 import './styles.scss'
 
 const ResponsiveAppBar = () => {
-  const { isLogged } = useAuth()
-  const { getTotalItems } = useCart()
+  const { isLogged, handleLogout } = useAuth()
+  const { getTotalItems, handleCartIconClick } = useCart()
   const { user, isAdmin } = useUser()
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
@@ -76,7 +75,15 @@ const ResponsiveAppBar = () => {
   const settingsLinks = [
     { text: 'Admin', type: 'router', href: '/cpanel', icon: 'AdminPanelSettingsIcon' },
     { text: 'Profile', type: 'router', href: '/profile', icon: 'ManageAccountsIcon' },
-    { text: 'Logout', type: 'anchor', href: '/logout', icon: 'LogoutIcon' },
+    {
+      text: 'Logout',
+      type: 'anchor',
+      href: '/logout',
+      icon: 'LogoutIcon',
+      handlers: {
+        click: handleLogout,
+      },
+    },
   ]
 
   return (
@@ -167,13 +174,12 @@ const ResponsiveAppBar = () => {
             <IconButton
               aria-label="show shopping cart"
               color="inherit"
-              component={Link}
               size="large"
-              to="/cart"
+              onClick={handleCartIconClick}
             >
               <Cart itemsQty={getTotalItems()} />
             </IconButton>
-            {isLogged ? (
+            {user && isLogged ? (
               <Tooltip title="Open settings">
                 <IconButton
                   aria-label="open user settings"
