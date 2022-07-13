@@ -3,14 +3,13 @@ import RequestService from './requestService'
 class CartService {
   static API_URL = `${import.meta.env.VITE_API_URL}/cart`
 
-  static async add({ id_prod, qty }) {
+  static async add(id_prod, qty) {
     try {
       const data = {
-        id_prod,
         qty,
       }
 
-      return await RequestService.POST(`${CartService.API_URL}`, data)
+      return await RequestService.POST(`${CartService.API_URL}/${id_prod}`, data)
     } catch (err) {
       console.log(err)
     }

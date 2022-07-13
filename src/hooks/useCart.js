@@ -10,9 +10,9 @@ const useCart = () => {
   const { cart, setCart } = useContext(CartContext)
   const { isLogged } = useContext(AuthContext)
 
-  const addCartItem = async ({ id_prod, qty }) => {
+  const addCartItem = async (id_prod, qty) => {
     try {
-      const result = await Service.add({ id_prod, qty })
+      const result = await Service.add(id_prod, qty)
 
       if (result.success) {
         const cartUpdated = [...cart]
@@ -26,7 +26,9 @@ const useCart = () => {
           cartUpdated.splice(itemIndex, 1, itemToUpdate)
         } else {
           const item = {
-            id: id_prod,
+            product: {
+              id: id_prod,
+            },
             qty,
           }
 
@@ -36,7 +38,7 @@ const useCart = () => {
         setCart(cartUpdated)
       }
 
-      return result.success
+      return result
     } catch (error) {
       console.error(error)
     }

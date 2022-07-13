@@ -29,18 +29,12 @@ const ProductCard = ({ id, name, price, img }) => {
     if (isLogged) {
       const { id } = event.target.dataset
 
-      const success = await addCartItem({
-        id_prod: Number(id),
-        qty: 1,
-      })
+      const result = await addCartItem(Number(id), 1)
 
-      if (success) setNotificator('success', 'Item added')
-      else {
-        setNotificator('error', 'Add item failed')
-
-        setTimeout(() => {
-          navigate('/login')
-        }, 3000)
+      if (result.success) {
+        setNotificator('success', 'Item added')
+      } else {
+        setNotificator('error', `${result.error.description}`)
       }
     } else {
       navigate('/login')
