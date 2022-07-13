@@ -14,12 +14,14 @@ import './styles.scss'
 import useProducts from '../../hooks/useProducts'
 import useNotificator from '../../hooks/useNotificator'
 import Notificator from '../Notificator'
+import useUtilities from '../../hooks/useUtilities'
 
 const ProductDetails = () => {
   const { id } = useParams()
   const { product, getID } = useProducts()
   const navigate = useNavigate()
   const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
+  const { formatPrice } = useUtilities()
   const [loader, setLoader] = useState(true)
   const [units, setUnits] = useState(1)
 
@@ -61,7 +63,7 @@ const ProductDetails = () => {
                 <Divider className="divider" />
               </Grid>
               <Grid item xs={12}>
-                <Typography className="price">${product.price}</Typography>
+                <Typography className="price">{formatPrice(product.price)}</Typography>
               </Grid>
               <Grid item xs={12}>
                 {product.description.length > 0 &&

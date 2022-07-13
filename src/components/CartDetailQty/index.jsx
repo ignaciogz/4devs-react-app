@@ -1,6 +1,8 @@
 import * as React from 'react'
 import TextField from '@mui/material/TextField'
 
+import './styles.scss'
+
 const CartDetailQty = ({ item }) => {
   const [units, setUnits] = React.useState(item.qty)
   const handleChange = (event) => {

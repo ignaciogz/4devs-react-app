@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -20,6 +20,7 @@ import CartDetailQty from '../CartDetailQty'
 import useAuth from '../../hooks/useAuth'
 import useCart from '../../hooks/useCart'
 import useNotificator from '../../hooks/useNotificator'
+import useUtilities from '../../hooks/useUtilities'
 import Notificator from '../Notificator'
 
 const CartDetail = () => {
@@ -27,6 +28,7 @@ const CartDetail = () => {
   const { isLogged } = useAuth()
   const { cart, getCart, removeCartItem } = useCart()
   const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
+  const { formatPrice } = useUtilities()
   const [loader, setLoader] = useState(true)
 
   // ↓ ****** START - AUTH ****** ↓
@@ -86,7 +88,7 @@ const CartDetail = () => {
   }
 
   return (
-    <Box className="cart-details" component="section">
+    <Box className="cart-detail" component="section">
       {loader ? (
         <Box className="loader">
           <CircularProgress />
@@ -111,13 +113,20 @@ const CartDetail = () => {
                   <TableBody>
                     {cartRows.map((row, index) => (
                       <TableRow key={index} className="table-content">
-                        <TableCell align="center" size="small">
+                        <TableCell
+                          align="center"
+                          component={Link}
+                          size="small"
+                          to={`/product/${row.id}`}
+                        >
                           <img alt={`image of ${row.name}`} src={row.img} />
                         </TableCell>
-                        <TableCell>{row.name}</TableCell>
-                        <TableCell>${row.price}</TableCell>
+                        <TableCell component={Link} to={`/product/${row.id}`}>
+                          {row.name}
+                        </TableCell>
+                        <TableCell>{formatPrice(row.price)}</TableCell>
                         <TableCell>{row.qty}</TableCell>
-                        <TableCell align="right">${row.subtotal}</TableCell>
+                        <TableCell align="right">{formatPrice(row.subtotal)}</TableCell>
                         <TableCell align="center">
                           <Button data-id={row.id} variant="text" onClick={handleRemoveIconClick}>
                             <DeleteIcon />
@@ -131,7 +140,7 @@ const CartDetail = () => {
                       <TableCell align="right">
                         <h2>TOTAL</h2>
                       </TableCell>
-                      <TableCell align="right">${cartTotal}</TableCell>
+                      <TableCell align="right">{formatPrice(cartTotal)}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>

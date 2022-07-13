@@ -16,11 +16,13 @@ import useAuth from '../../hooks/useAuth'
 import useCart from '../../hooks/useCart'
 import useNotificator from '../../hooks/useNotificator'
 import Notificator from '../Notificator'
+import useUtilities from '../../hooks/useUtilities'
 
 const ProductCard = ({ id, name, price, img }) => {
   const navigate = useNavigate()
   const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
   const { isLogged } = useAuth()
+  const { formatPrice } = useUtilities()
   const { addCartItem } = useCart()
 
   const handleClick = async (event) => {
@@ -51,7 +53,7 @@ const ProductCard = ({ id, name, price, img }) => {
               <Typography gutterBottom component="div" variant="h5">
                 {name}
               </Typography>
-              <Typography className="price">${price}</Typography>
+              <Typography className="price">{formatPrice(price)}</Typography>
             </CardContent>
           </Box>
         </CardActionArea>

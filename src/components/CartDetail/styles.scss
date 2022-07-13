@@ -1,6 +1,6 @@
 @import "../../App.scss";
 
-section.cart-details {
+section.cart-detail {
     flex-grow: 1;
     min-height: 200px; // OJO
     @include sectionContainer(3rem);
