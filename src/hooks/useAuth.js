@@ -1,5 +1,4 @@
 import { useContext } from 'react'
-//import { useNavigate } from 'react-router-dom'
 
 import AuthContext from '../context/AuthContext'
 import CartContext from '../context/CartContext'
@@ -10,7 +9,6 @@ import useCart from './useCart'
 import useUser from './useUser'
 
 const useAuth = () => {
-  //const navigate = useNavigate()
   const { isLogged, setIsLogged } = useContext(AuthContext)
   const { setCart } = useContext(CartContext)
   const { setUser, userDataLoaded, setUserDataLoaded } = useContext(UserContext)
@@ -53,13 +51,7 @@ const useAuth = () => {
     event.preventDefault()
     const result = await Service.logout()
 
-    if (result.success) {
-      logout()
-
-      /* setTimeout(() => {
-        navigate('/')
-      }, 2000) */
-    }
+    result.success && logout()
   }
 
   const login = async ({ username, password }) => {

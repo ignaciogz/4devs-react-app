@@ -21,7 +21,7 @@ const ProductCard = ({ id, name, price, img }) => {
   const navigate = useNavigate()
   const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
   const { isLogged } = useAuth()
-  const { add } = useCart()
+  const { addCartItem } = useCart()
 
   const handleClick = async (event) => {
     event.preventDefault()
@@ -29,22 +29,18 @@ const ProductCard = ({ id, name, price, img }) => {
     if (isLogged) {
       const { id } = event.target.dataset
 
-      const success = await add({
+      const success = await addCartItem({
         id_prod: Number(id),
         qty: 1,
       })
 
-      if (success) {
-        setNotificator('success', 'Item added')
-        setTimeout(() => {
-          closeNotificator()
-          navigate('/')
-        }, 6000)
-      } else {
+      if (success) setNotificator('success', 'Item added')
+      else {
         setNotificator('error', 'Add item failed')
+
         setTimeout(() => {
           navigate('/login')
-        }, 6000)
+        }, 3000)
       }
     } else {
       navigate('/login')

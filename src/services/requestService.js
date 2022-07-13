@@ -4,6 +4,12 @@ function generateOptionsObj(method, data, withFormData) {
   let optionsObj = {
     credentials: 'include',
     method,
+  }
+
+  if (data === null) return optionsObj
+
+  optionsObj = {
+    ...optionsObj,
     body,
   }
 

@@ -19,11 +19,14 @@ import empty from '../../assets/img/empty.png'
 import CartDetailQty from '../CartDetailQty'
 import useAuth from '../../hooks/useAuth'
 import useCart from '../../hooks/useCart'
+import useNotificator from '../../hooks/useNotificator'
+import Notificator from '../Notificator'
 
 const CartDetail = () => {
   const navigate = useNavigate()
   const { isLogged } = useAuth()
-  const { cart, cartDetail, getCartDetail } = useCart()
+  const { cart, getCart, removeCartItem } = useCart()
+  const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
   const [loader, setLoader] = useState(true)
 
   // ↓ ****** START - AUTH ****** ↓
@@ -32,15 +35,15 @@ const CartDetail = () => {
   }, [isLogged, navigate])
   // ↑ ****** END - AUTH ****** ↑
 
-  async function getDetail() {
-    const success = await getCartDetail()
+  async function getCartDetail() {
+    const success = await getCart()
 
     success && setLoader(false)
   }
 
   useEffect(() => {
-    getDetail()
-  }, [cart])
+    getCartDetail()
+  }, [])
 
   function subtotalCol(item) {
     return item.product.price * item.qty
@@ -51,6 +54,7 @@ const CartDetail = () => {
     const product = item.product
 
     return {
+      id: product.id,
       img: product.img,
       name: product.name,
       price: product.price,
@@ -67,8 +71,19 @@ const CartDetail = () => {
     return items.map(({ subtotal }) => subtotal).reduce((sum, i) => sum + i, 0)
   }
 
-  const cartRows = cartDetail ? createRows(cartDetail) : []
-  const cartTotal = cartRows.length > 0 ? calculateTotal(cartRows) : 0
+  const cartRows = !loader && cart.length > 0 ? createRows(cart) : []
+  const cartTotal = !loader && cart.length > 0 ? calculateTotal(cartRows) : 0
+
+  const handleRemoveIconClick = async (event) => {
+    event.preventDefault()
+    const { id } = event.target.dataset
+
+    const success = await removeCartItem(id)
+
+    success
+      ? setNotificator('warning', 'Item removed')
+      : setNotificator('error', 'Remove item failed')
+  }
 
   return (
     <Box className="cart-details" component="section">
@@ -100,11 +115,11 @@ const CartDetail = () => {
                           <img alt={`image of ${row.name}`} src={row.img} />
                         </TableCell>
                         <TableCell>{row.name}</TableCell>
-                        <TableCell>{row.price}</TableCell>
+                        <TableCell>${row.price}</TableCell>
                         <TableCell>{row.qty}</TableCell>
                         <TableCell align="right">${row.subtotal}</TableCell>
                         <TableCell align="center">
-                          <Button variant="text">
+                          <Button data-id={row.id} variant="text" onClick={handleRemoveIconClick}>
                             <DeleteIcon />
                           </Button>
                         </TableCell>
@@ -135,6 +150,14 @@ const CartDetail = () => {
             </Box>
           )}
         </Box>
+      )}
+      {isOpen && (
+        <Notificator
+          closeNotificator={closeNotificator}
+          isOpen={isOpen}
+          severity={severity}
+          text={text}
+        />
       )}
     </Box>
   )

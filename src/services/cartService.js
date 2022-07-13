@@ -3,22 +3,6 @@ import RequestService from './requestService'
 class CartService {
   static API_URL = `${import.meta.env.VITE_API_URL}/cart`
 
-  static async getCart() {
-    try {
-      return await RequestService.GET(`${CartService.API_URL}`)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  static async getCartDetail() {
-    try {
-      return await RequestService.GET(`${CartService.API_URL}/detail`)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
   static async add({ id_prod, qty }) {
     try {
       const data = {
@@ -27,6 +11,22 @@ class CartService {
       }
 
       return await RequestService.POST(`${CartService.API_URL}`, data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  static async getCart() {
+    try {
+      return await RequestService.GET(`${CartService.API_URL}`)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  static async remove(id_prod) {
+    try {
+      return await RequestService.DELETE(`${CartService.API_URL}/${id_prod}`, null)
     } catch (err) {
       console.log(err)
     }

@@ -34,18 +34,6 @@ const UserRegister = () => {
   }, [navigate])
   // ↑ ****** END - AUTH ****** ↑
 
-  // START - Auth
-  /* const isAuth = async () => {
-    const loggedIn = await checkLoggedIn()
-
-    loggedIn && navigate('/')
-  }
-
-  useEffect(() => {
-    isAuth()
-  }, []) */
-  // END - Auth
-
   const handleSubmit = async (event) => {
     event.preventDefault()
     let formData = new FormData(event.target)
