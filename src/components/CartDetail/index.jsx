@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -25,8 +25,9 @@ import Notificator from '../Notificator'
 
 const CartDetail = () => {
   const navigate = useNavigate()
+  const timeout = useRef()
   const { isLogged } = useAuth()
-  const { cart, getCart, removeCartItem } = useCart()
+  const { cart, getCart, updateCartItem, removeCartItem } = useCart()
   const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
   const { formatPrice } = useUtilities()
   const [loader, setLoader] = useState(true)
@@ -55,12 +56,14 @@ const CartDetail = () => {
     const subtotal = subtotalCol(item)
     const product = item.product
 
+    const handleChange = handleUnitsChange()
+
     return {
       id: product.id,
       img: product.img,
       name: product.name,
       price: product.price,
-      qty: <CartDetailQty item={item} />,
+      qty: <CartDetailQty handleChange={handleChange} item={item} />,
       subtotal,
     }
   }
@@ -70,13 +73,13 @@ const CartDetail = () => {
   }
 
   function calculateTotal(items) {
-    return items.map(({ subtotal }) => subtotal).reduce((sum, i) => sum + i, 0)
+    return items.reduce((a, b) => a + b.subtotal, 0)
   }
 
   const cartRows = !loader && cart.length > 0 ? createRows(cart) : []
   const cartTotal = !loader && cart.length > 0 ? calculateTotal(cartRows) : 0
 
-  const handleRemoveIconClick = async (event) => {
+  async function handleRemoveIconClick(event) {
     event.preventDefault()
     const { id } = event.target.dataset
 
@@ -85,6 +88,29 @@ const CartDetail = () => {
     success
       ? setNotificator('warning', 'Item removed')
       : setNotificator('error', 'Remove item failed')
+  }
+
+  function handleUnitsChange() {
+    return (event) => {
+      clearTimeout(timeout.current)
+
+      timeout.current = setTimeout(async () => {
+        const { id } = event.target
+        const qty = event.target.value
+
+        if (qty.length > 0) {
+          const result = await updateCartItem(id, qty)
+
+          if (result.success) {
+            setNotificator('success', 'Item updated')
+            event.target.value = qty
+          } else {
+            setNotificator('error', `${result.error.description}`)
+            event.target.value = result.error.value
+          }
+        }
+      }, 600)
+    }
   }
 
   return (
@@ -113,16 +139,15 @@ const CartDetail = () => {
                   <TableBody>
                     {cartRows.map((row, index) => (
                       <TableRow key={index} className="table-content">
-                        <TableCell
-                          align="center"
-                          component={Link}
-                          size="small"
-                          to={`/product/${row.id}`}
-                        >
-                          <img alt={`image of ${row.name}`} src={row.img} />
+                        <TableCell align="center" size="small">
+                          <Box component={Link} to={`/product/${row.id}`}>
+                            <img alt={`image of ${row.name}`} src={row.img} />
+                          </Box>
                         </TableCell>
-                        <TableCell component={Link} to={`/product/${row.id}`}>
-                          {row.name}
+                        <TableCell>
+                          <Box component={Link} to={`/product/${row.id}`}>
+                            {row.name}
+                          </Box>
                         </TableCell>
                         <TableCell>{formatPrice(row.price)}</TableCell>
                         <TableCell>{row.qty}</TableCell>

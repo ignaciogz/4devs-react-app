@@ -31,7 +31,7 @@ const ProductCard = ({ id, name, price, img }) => {
     if (isLogged) {
       const { id } = event.target.dataset
 
-      const result = await addCartItem(Number(id), 1)
+      const result = await addCartItem(id, 1)
 
       if (result.success) {
         setNotificator('success', 'Item added')

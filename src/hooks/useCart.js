@@ -10,9 +10,9 @@ const useCart = () => {
   const { cart, setCart } = useContext(CartContext)
   const { isLogged } = useContext(AuthContext)
 
-  const addCartItem = async (id_prod, qty) => {
+  const addCartItem = async (id_prod) => {
     try {
-      const result = await Service.add(id_prod, qty)
+      const result = await Service.add(id_prod)
 
       if (result.success) {
         const cartUpdated = [...cart]
@@ -21,7 +21,7 @@ const useCart = () => {
         if (itemIndex !== -1) {
           let itemToUpdate = cart[itemIndex]
 
-          itemToUpdate.qty += qty
+          itemToUpdate.qty += 1
 
           cartUpdated.splice(itemIndex, 1, itemToUpdate)
         } else {
@@ -29,7 +29,7 @@ const useCart = () => {
             product: {
               id: id_prod,
             },
-            qty,
+            qty: 1,
           }
 
           cartUpdated.push(item)
@@ -45,14 +45,43 @@ const useCart = () => {
   }
 
   const getCart = async () => {
-    const result = await Service.getCart()
+    try {
+      const result = await Service.getCart()
 
-    result.success && setCart(result.data.cart)
+      result.success && setCart(result.data.cart)
 
-    return result.success
+      return result.success
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const getTotalItems = () => cart.reduce((a, b) => a + b.qty, 0)
+
+  const updateCartItem = async (id_prod, qty) => {
+    try {
+      const result = await Service.update(id_prod, qty)
+
+      if (result.success) {
+        const cartUpdated = [...cart]
+        const itemIndex = cart.findIndex((element) => element.product.id == id_prod)
+
+        let itemToUpdate = cart[itemIndex]
+
+        itemToUpdate.qty = Number(qty)
+
+        cartUpdated.splice(itemIndex, 1, itemToUpdate)
+
+        setCart(cartUpdated)
+      } else {
+        await getCart()
+      }
+
+      return result
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const removeCartItem = async (id_prod) => {
     try {
@@ -82,6 +111,7 @@ const useCart = () => {
     getTotalItems,
     handleCartIconClick,
     removeCartItem,
+    updateCartItem,
   }
 }
 

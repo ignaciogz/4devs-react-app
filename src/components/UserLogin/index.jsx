@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import CircularProgress from '@mui/material/CircularProgress'
 import Chip from '@mui/material/Chip'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
@@ -19,10 +20,13 @@ const UserLogin = () => {
   const navigate = useNavigate()
   const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
   const { isLogged, login } = useAuth()
+  const [loader, setLoader] = useState(true)
 
   // ↓ ****** START - AUTH ****** ↓
   useEffect(() => {
     isLogged && navigate('/')
+
+    setLoader(false)
   }, [navigate])
   // ↑ ****** END - AUTH ****** ↑
 
@@ -48,46 +52,52 @@ const UserLogin = () => {
 
   return (
     <Box className="login" component="section">
-      <Grid container spacing={0}>
-        <Grid item xs={3} />
-        <Grid item xs={6}>
-          <h1>My Account</h1>
-          <Box
-            noValidate
-            autoComplete="off"
-            component="form"
-            method="post"
-            role="form"
-            sx={{
-              '& > :not(style)': { m: 1.2, width: '30ch' },
-            }}
-            onSubmit={handleSubmit}
-          >
-            <TextField required label="Email" name="email" type="email" variant="standard" />
-            <TextField
-              required
-              label="Password"
-              name="password"
-              type="password"
-              variant="standard"
-            />
-            <Button size="large" type="submit" variant="contained">
-              <LoginIcon />
-              LOG IN
-            </Button>
-            <Box component="div">
-              Do not have an account yet? <Link to="/register">Sign Up</Link>
+      {loader ? (
+        <Box className="loader">
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Grid container spacing={0}>
+          <Grid item xs={3} />
+          <Grid item xs={6}>
+            <h1>My Account</h1>
+            <Box
+              noValidate
+              autoComplete="off"
+              component="form"
+              method="post"
+              role="form"
+              sx={{
+                '& > :not(style)': { m: 1.2, width: '30ch' },
+              }}
+              onSubmit={handleSubmit}
+            >
+              <TextField required label="Email" name="email" type="email" variant="standard" />
+              <TextField
+                required
+                label="Password"
+                name="password"
+                type="password"
+                variant="standard"
+              />
+              <Button size="large" type="submit" variant="contained">
+                <LoginIcon />
+                LOG IN
+              </Button>
+              <Box component="div">
+                Do not have an account yet? <Link to="/register">Sign Up</Link>
+              </Box>
             </Box>
-          </Box>
-          <Divider className="divider">
-            <Chip label="Or" />
-          </Divider>
-          <Button className="loginFacebookBtn" size="large" variant="contained">
-            <FacebookIcon />
-            FACEBOOK
-          </Button>
+            <Divider className="divider">
+              <Chip label="Or" />
+            </Divider>
+            <Button className="loginFacebookBtn" size="large" variant="contained">
+              <FacebookIcon />
+              FACEBOOK
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
+      )}
       {isOpen && (
         <Notificator
           closeNotificator={closeNotificator}

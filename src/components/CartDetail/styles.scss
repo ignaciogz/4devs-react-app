@@ -13,6 +13,11 @@ section.cart-detail {
 
     table {
         .table-content {
+            a {
+                display: block;
+                color: var(--black);
+            }
+
             img {
                 max-height: 70px;
                 max-width: 70px;
