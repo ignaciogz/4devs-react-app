@@ -104,6 +104,8 @@ const useCart = () => {
 
   const handleCartIconClick = () => (isLogged ? navigate('/cart') : navigate('/login'))
 
+  const stopProp = (e) => e.stopPropagation()
+
   return {
     cart,
     addCartItem,
@@ -111,6 +113,7 @@ const useCart = () => {
     getTotalItems,
     handleCartIconClick,
     removeCartItem,
+    stopProp,
     updateCartItem,
   }
 }

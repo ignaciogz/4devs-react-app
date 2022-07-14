@@ -18,7 +18,14 @@ const useUtilities = () => {
     return formatter.format(price)
   }
 
-  return { formatPrice }
+  const getIconButtonTarget = (target) => {
+    if (target.tagName == 'svg') target = event.target.parentNode
+    if (target.tagName == 'path') target = event.target.parentNode.parentNode
+
+    return target
+  }
+
+  return { formatPrice, getIconButtonTarget }
 }
 
 export default useUtilities

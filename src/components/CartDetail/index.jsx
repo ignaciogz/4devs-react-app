@@ -29,7 +29,7 @@ const CartDetail = () => {
   const { isLogged } = useAuth()
   const { cart, getCart, updateCartItem, removeCartItem } = useCart()
   const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
-  const { formatPrice } = useUtilities()
+  const { formatPrice, getIconButtonTarget } = useUtilities()
   const [loader, setLoader] = useState(true)
 
   // ↓ ****** START - AUTH ****** ↓
@@ -80,8 +80,8 @@ const CartDetail = () => {
   const cartTotal = !loader && cart.length > 0 ? calculateTotal(cartRows) : 0
 
   async function handleRemoveIconClick(event) {
-    event.preventDefault()
-    const { id } = event.target.dataset
+    const target = getIconButtonTarget(event.target)
+    const { id } = target.dataset
 
     const success = await removeCartItem(id)
 
@@ -153,7 +153,7 @@ const CartDetail = () => {
                         <TableCell>{row.qty}</TableCell>
                         <TableCell align="right">{formatPrice(row.subtotal)}</TableCell>
                         <TableCell align="center">
-                          <Button data-id={row.id} variant="text" onClick={handleRemoveIconClick}>
+                          <Button data-id={row.id} onClick={handleRemoveIconClick}>
                             <DeleteIcon />
                           </Button>
                         </TableCell>
