@@ -34,7 +34,7 @@ const ChatMessageInput = ({ socket }) => {
           required
           label="message"
           name="message"
-          placeholder="Type your message and press enter"
+          placeholder="Type your message. Press 'enter' to send."
           size="small"
           type="text"
           value={message}

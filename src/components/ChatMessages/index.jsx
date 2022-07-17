@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -16,7 +17,8 @@ import useUtilities from '../../hooks/useUtilities'
 const ChatMessages = ({ socket }) => {
   const { chatSchema } = useChat()
   const { getDenormalizeData } = useUtilities()
-  const [messages, setMessages] = useState({})
+  const [messages, setMessages] = useState(null)
+  const [showAll, setShowAll] = useState(false)
 
   useEffect(() => {
     const messageListener = (message) => {
@@ -46,39 +48,49 @@ const ChatMessages = ({ socket }) => {
     }
   }, [socket])
 
+  const clickHandler = () => {
+    setShowAll(true)
+  }
+
   return (
     <Box className="chat-messages" component="section">
       <List sx={{ bgcolor: 'background.paper' }}>
-        {[...Object.values(messages)]
-          .sort((a, b) => a.timestamp - b.timestamp)
-          .reverse()
-          .map((item) => (
-            <Box key={item.id}>
-              <ListItem alignItems="flex-start" className="chat-item">
-                <ListItemAvatar>
-                  <Avatar
-                    alt={`avatar of ${item.author.name}`}
-                    src={`http://localhost:8080/img/avatars/${item.author.img}`}
+        {messages &&
+          [...Object.values(messages)]
+            .sort((a, b) => a.timestamp - b.timestamp)
+            .slice(showAll ? 0 : -5)
+            .map((item) => (
+              <Box key={item.id}>
+                <ListItem alignItems="flex-start" className="chat-item">
+                  <ListItemAvatar>
+                    <Avatar
+                      alt={`avatar of ${item.author.name}`}
+                      src={`http://localhost:8080/img/avatars/${item.author.img}`}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={
+                      <React.Fragment>
+                        <Typography
+                          className="message-header"
+                          color="text.primary"
+                          title={`${item.author.email}`}
+                        >
+                          {item.author.name} <small>{item.timestamp}</small>
+                        </Typography>
+                      </React.Fragment>
+                    }
+                    secondary={item.message}
                   />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={
-                    <React.Fragment>
-                      <Typography
-                        className="message-header"
-                        color="text.primary"
-                        title={`${item.author.email}`}
-                      >
-                        {item.author.name} <small>{item.timestamp}</small>
-                      </Typography>
-                    </React.Fragment>
-                  }
-                  secondary={item.message}
-                />
-              </ListItem>
-              <Divider component="li" variant="inset" />
-            </Box>
-          ))}
+                </ListItem>
+                <Divider component="li" variant="inset" />
+              </Box>
+            ))}
+        {messages && !showAll && (
+          <Button aria-label="Show all messages" onClick={clickHandler}>
+            Show all messages
+          </Button>
+        )}
       </List>
     </Box>
   )

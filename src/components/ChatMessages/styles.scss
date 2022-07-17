@@ -3,9 +3,12 @@ section.chat-messages {
     width: 100%;
 
     ul {
-        //height: 382px;
-        height: 300px;
+        max-height: 420px;
         overflow: auto;
+        
+        button {
+            width: 100%;
+        }
     }
 
     .chat-item {
