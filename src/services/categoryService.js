@@ -1,10 +1,11 @@
-class CategoryService {
-  static async get() {
-    try {
-      const res = await fetch('http://localhost:8080/api/categories')
-      const data = await res.json()
+import RequestService from './requestService'
 
-      return data
+class CategoryService {
+  static API_URL = `${import.meta.env.VITE_API_URL}/categories`
+
+  static async getAll() {
+    try {
+      return await RequestService.GET(`${CategoryService.API_URL}`)
     } catch (err) {
       console.log(err)
     }

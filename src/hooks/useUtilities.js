@@ -1,6 +1,8 @@
 import { denormalize } from 'normalizr'
 
 const useUtilities = () => {
+  const filter = (array, key, value) => array.filter((element) => element[key] == value)
+
   const formatPrice = (price, withDecimals = true) => {
     let config = {
       style: 'currency',
@@ -34,6 +36,7 @@ const useUtilities = () => {
   }
 
   return {
+    filter,
     formatPrice,
     getDenormalizeData,
     getIconButtonTarget,

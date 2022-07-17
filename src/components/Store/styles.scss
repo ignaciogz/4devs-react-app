@@ -18,6 +18,12 @@ section.store {
 
     .products-grid {
         row-gap: 1rem;
+
+        .no-producs-with-filter {
+            margin-top: 1rem;
+            text-align: center;
+            width: 100%;
+        }
     }
 
     .productsSorter {
