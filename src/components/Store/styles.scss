@@ -11,11 +11,6 @@ section.store {
         text-align: center;
     }
 
-    small {
-        color: gray;
-        margin-right: 0.5rem;
-    }
-
     .products-grid {
         row-gap: 1rem;
 
@@ -24,11 +19,5 @@ section.store {
             text-align: center;
             width: 100%;
         }
-    }
-
-    .productsSorter {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1.5rem;
     }
 }

@@ -24,8 +24,6 @@ const ProductFilters = ({ categories, brands, setProductsFiltered }) => {
   const handleBrandFilterClick = (event) => {
     const brandValue = event.target.value
 
-    console.log('BRAND FILTER: ', brandValue)
-
     setBrandFilterValue(brandValue)
     const productsFiltered = filterProducts(brandValue, categoryFilterValue, priceFilterValue)
 
@@ -35,8 +33,6 @@ const ProductFilters = ({ categories, brands, setProductsFiltered }) => {
   const handleCategoryFilterClick = (event) => {
     const categoryValue = event.target.value
 
-    console.log('CATEGORY FILTER: ', categoryValue)
-
     setCategoryFilterValue(categoryValue)
     const productsFiltered = filterProducts(brandFilterValue, categoryValue, priceFilterValue)
 
@@ -45,8 +41,6 @@ const ProductFilters = ({ categories, brands, setProductsFiltered }) => {
 
   const handlePriceFilterChange = (event) => {
     const priceValue = event.target.value
-
-    console.log('PRICE FILTER: ', priceValue)
 
     setPriceFilterValue(priceValue)
     const productsFiltered = filterProducts(brandFilterValue, categoryFilterValue, priceValue)
@@ -59,7 +53,6 @@ const ProductFilters = ({ categories, brands, setProductsFiltered }) => {
     const target = getIconButtonTarget(event.target)
     const filterToClear = target.value
 
-    console.log('CLEAR: ', filterToClear)
     switch (filterToClear) {
       case 'brandFilter':
         productsFiltered = filterProducts(null, categoryFilterValue, priceFilterValue)

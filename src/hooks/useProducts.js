@@ -71,12 +71,26 @@ const useProducts = () => {
     }
   }
 
+  const sortProducts = (sorterValue) => {
+    let productsSorted = [...products]
+    const [by, order] = sorterValue.split('-')
+
+    by === 'name' && productsSorted.sort((a, b) => a.name.localeCompare(b.name))
+    by === 'price' && productsSorted.sort((a, b) => a.price - b.price)
+    order === 'DESC' && productsSorted.reverse()
+
+    setProducts(productsSorted)
+
+    return productsSorted
+  }
+
   return {
     product,
     products,
     getAll,
     getID,
     filterProducts,
+    sortProducts,
   }
 }
 
