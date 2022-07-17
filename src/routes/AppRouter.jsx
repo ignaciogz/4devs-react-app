@@ -9,6 +9,7 @@ import Register from '../pages/Register'
 import Success from '../pages/Success'
 import NotFound from '../pages/NotFound'
 import Admin from '../pages/Admin'
+import Chat from '../pages/Chat'
 
 import ScrollToTop from './ScrollToTop'
 
@@ -26,6 +27,7 @@ const AppRouter = () => {
           <Route element={<NotFound />} path="*" />
           <Route element={<Admin />} path="/cpanel" />
           <Route element={<Admin />} path="/cpanel/order/:id" />
+          <Route element={<Chat />} path="/chat" />
         </Routes>
       </ScrollToTop>
     </BrowserRouter>

@@ -1,0 +1,18 @@
+section.chat-messages {
+    max-width: 700px;
+    width: 100%;
+
+    ul {
+        //height: 382px;
+        height: 300px;
+        overflow: auto;
+    }
+
+    .chat-item {
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+  

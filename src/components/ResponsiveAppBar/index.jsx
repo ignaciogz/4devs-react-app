@@ -64,7 +64,7 @@ const ResponsiveAppBar = () => {
     },
     {
       text: 'Contact Us',
-      href: '/login',
+      href: '/chat',
       type: 'router',
       handlers: {
         click: handleCloseNavMenu,

@@ -1,3 +1,5 @@
+import { denormalize } from 'normalizr'
+
 const useUtilities = () => {
   const formatPrice = (price, withDecimals = true) => {
     let config = {
@@ -19,13 +21,23 @@ const useUtilities = () => {
   }
 
   const getIconButtonTarget = (target) => {
-    if (target.tagName == 'svg') target = event.target.parentNode
-    if (target.tagName == 'path') target = event.target.parentNode.parentNode
+    if (target.tagName == 'svg') target = target.parentNode
+    if (target.tagName == 'path') target = target.parentNode.parentNode
 
     return target
   }
 
-  return { formatPrice, getIconButtonTarget }
+  const getDenormalizeData = (data, schema, id) => {
+    const desnormalizeResult = denormalize(data[id].result, schema, data[id].entities)
+
+    return desnormalizeResult[id]
+  }
+
+  return {
+    formatPrice,
+    getDenormalizeData,
+    getIconButtonTarget,
+  }
 }
 
 export default useUtilities
