@@ -63,7 +63,7 @@ const ResponsiveAppBar = () => {
       },
     },
     {
-      text: 'Contact Us',
+      text: 'Chat',
       href: '/chat',
       type: 'router',
       handlers: {

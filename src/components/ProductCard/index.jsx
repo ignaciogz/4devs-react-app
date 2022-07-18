@@ -26,8 +26,6 @@ const ProductCard = ({ id, name, price, img }) => {
   const { addCartItem } = useCart()
 
   const handleClick = async (event) => {
-    event.preventDefault()
-
     if (isLogged) {
       const { id } = event.target.dataset
 

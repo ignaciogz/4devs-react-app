@@ -3,10 +3,11 @@ import RequestService from './requestService'
 class CartService {
   static API_URL = `${import.meta.env.VITE_API_URL}/cart`
 
-  static async add(id_prod) {
+  static async add(id_prod, qty, addMaxAvailable) {
     try {
       const data = {
-        qty: 1,
+        qty: Number(qty),
+        addMaxAvailable,
       }
 
       return await RequestService.POST(`${CartService.API_URL}/${id_prod}`, data)
@@ -23,10 +24,11 @@ class CartService {
     }
   }
 
-  static async update(id_prod, qty) {
+  static async update(id_prod, qty, addMaxAvailable) {
     try {
       const data = {
         qty: Number(qty),
+        addMaxAvailable,
       }
 
       return await RequestService.PUT(`${CartService.API_URL}/${id_prod}`, data)

@@ -33,7 +33,7 @@ const useProducts = () => {
         setProduct(productToShow)
       }
 
-      return result.success
+      return result
     } catch (error) {
       console.error(error)
     }

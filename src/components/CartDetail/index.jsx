@@ -79,7 +79,7 @@ const CartDetail = () => {
   const cartRows = !loader && cart.length > 0 ? createRows(cart) : []
   const cartTotal = !loader && cart.length > 0 ? calculateTotal(cartRows) : 0
 
-  async function handleRemoveIconClick(event) {
+  const handleRemoveIconClick = async (event) => {
     const target = getIconButtonTarget(event.target)
     const { id } = target.dataset
 
@@ -98,7 +98,7 @@ const CartDetail = () => {
         const { id } = event.target
         const qty = event.target.value
 
-        if (qty.length > 0) {
+        if (qty > 0) {
           const result = await updateCartItem(id, qty)
 
           if (result.success) {

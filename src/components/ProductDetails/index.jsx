@@ -11,6 +11,8 @@ import Rating from '@mui/material/Rating'
 
 import './styles.scss'
 
+import useAuth from '../../hooks/useAuth'
+import useCart from '../../hooks/useCart'
 import useProducts from '../../hooks/useProducts'
 import useNotificator from '../../hooks/useNotificator'
 import Notificator from '../Notificator'
@@ -18,18 +20,26 @@ import useUtilities from '../../hooks/useUtilities'
 
 const ProductDetails = () => {
   const { id } = useParams()
+  const { isLogged } = useAuth()
+  const { addCartItem, getMaxQtyToAdd } = useCart()
   const { product, getID } = useProducts()
   const navigate = useNavigate()
   const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
   const { formatPrice } = useUtilities()
   const [loader, setLoader] = useState(true)
   const [units, setUnits] = useState(1)
+  const [maxQty, setMaxQty] = useState(null)
 
   async function getProduct(id) {
-    const success = await getID(id)
+    const result = await getID(id)
 
-    if (success) setLoader(false)
-    else {
+    if (result.success) {
+      const max = getMaxQtyToAdd(result.data.product.id, result.data.product.stock)
+
+      setMaxValue(max)
+
+      setLoader(false)
+    } else {
       setTimeout(() => {
         navigate('/error404')
       }, 1500)
@@ -40,8 +50,46 @@ const ProductDetails = () => {
     getProduct(id)
   }, [id])
 
+  function setMaxValue(max) {
+    max > 0 && setMaxQty(max)
+    max == 0 && setMaxQty(false)
+  }
+
   const handleChange = (event) => {
     setUnits(event.target.value)
+  }
+
+  const handleClick = async () => {
+    if (isLogged) {
+      let qty = units
+
+      if (qty > 0) {
+        let max = undefined
+        const result = await addCartItem(id, qty, false)
+
+        if (result.success) {
+          setNotificator('success', 'Units added')
+
+          const result = await getID(id)
+
+          if (result.success) {
+            max = getMaxQtyToAdd(product.id, result.data.product.stock)
+            max == 0 && setUnits(0)
+            max > 0 && setUnits(1)
+          }
+        } else {
+          setNotificator('error', `${result.error.description}`)
+
+          max = getMaxQtyToAdd(product.id, result.error.value)
+          max == 0 && setUnits(0)
+          max > 0 && setUnits(max)
+        }
+
+        setMaxValue(max)
+      }
+    } else {
+      navigate('/login')
+    }
   }
 
   return (
@@ -87,14 +135,25 @@ const ProductDetails = () => {
                     className="units-to-add"
                     color="warning"
                     id="units-to-add"
-                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', min: 1, max: 5 }}
+                    inputProps={{
+                      inputMode: 'numeric',
+                      pattern: '[0-9]*',
+                      disabled: maxQty ? false : true,
+                      min: maxQty ? 1 : 0,
+                      max: maxQty,
+                    }}
                     label="Units to add"
                     type="number"
-                    value={units}
+                    value={maxQty ? units : 0}
                     variant="standard"
                     onChange={handleChange}
                   />
-                  <Button className="add-to-cart-btn" variant="contained">
+                  <Button
+                    className="add-to-cart-btn"
+                    disabled={maxQty ? false : true}
+                    variant="contained"
+                    onClick={handleClick}
+                  >
                     Add to Cart
                   </Button>
                 </Box>

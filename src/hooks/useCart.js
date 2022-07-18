@@ -10,9 +10,9 @@ const useCart = () => {
   const { cart, setCart } = useContext(CartContext)
   const { isLogged } = useContext(AuthContext)
 
-  const addCartItem = async (id_prod) => {
+  const addCartItem = async (id_prod, qty, addMaxAvailable = true) => {
     try {
-      const result = await Service.add(id_prod)
+      const result = await Service.add(id_prod, qty, addMaxAvailable)
 
       if (result.success) {
         const cartUpdated = [...cart]
@@ -21,7 +21,7 @@ const useCart = () => {
         if (itemIndex !== -1) {
           let itemToUpdate = cart[itemIndex]
 
-          itemToUpdate.qty += 1
+          itemToUpdate.qty += Number(qty)
 
           cartUpdated.splice(itemIndex, 1, itemToUpdate)
         } else {
@@ -29,7 +29,7 @@ const useCart = () => {
             product: {
               id: id_prod,
             },
-            qty: 1,
+            qty: Number(qty),
           }
 
           cartUpdated.push(item)
@@ -58,9 +58,9 @@ const useCart = () => {
 
   const getTotalItems = () => cart.reduce((a, b) => a + b.qty, 0)
 
-  const updateCartItem = async (id_prod, qty) => {
+  const updateCartItem = async (id_prod, qty, addMaxAvailable = true) => {
     try {
-      const result = await Service.update(id_prod, qty)
+      const result = await Service.update(id_prod, qty, addMaxAvailable)
 
       if (result.success) {
         const cartUpdated = [...cart]
@@ -102,6 +102,18 @@ const useCart = () => {
     }
   }
 
+  const getMaxQtyToAdd = (id_prod, productStock) => {
+    const itemIndex = cart.findIndex((element) => element.product.id == id_prod)
+
+    if (itemIndex !== -1) {
+      let item = cart[itemIndex]
+
+      return productStock - item.qty
+    } else {
+      return productStock
+    }
+  }
+
   const handleCartIconClick = () => (isLogged ? navigate('/cart') : navigate('/login'))
 
   const stopProp = (e) => e.stopPropagation()
@@ -110,6 +122,7 @@ const useCart = () => {
     cart,
     addCartItem,
     getCart,
+    getMaxQtyToAdd,
     getTotalItems,
     handleCartIconClick,
     removeCartItem,
