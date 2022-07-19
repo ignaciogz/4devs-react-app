@@ -74,7 +74,7 @@ const ResponsiveAppBar = () => {
 
   const settingsLinks = [
     { text: 'Admin', type: 'router', href: '/cpanel', icon: 'AdminPanelSettingsIcon' },
-    { text: 'Profile', type: 'router', href: '/profile', icon: 'ManageAccountsIcon' },
+    { text: 'Orders', type: 'router', href: '/orders', icon: 'ListNumberedIcon' },
     {
       text: 'Logout',
       type: 'anchor',

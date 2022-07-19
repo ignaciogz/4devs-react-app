@@ -107,7 +107,7 @@ const group2 = [
   { text: 'Logout', icon: LogoutIcon },
 ]
 
-const AdminPanel = ({ page = '' }) => {
+const AdminPanel = ({ page = 'order' }) => {
   const theme = useTheme()
   const [open, setOpen] = React.useState(false)
 

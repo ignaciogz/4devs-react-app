@@ -44,6 +44,19 @@ const useCart = () => {
     }
   }
 
+  const checkout = async () => {
+    try {
+      const result = await Service.checkout()
+
+      if (result.success) {
+        setCart([])
+        result.success && navigate(`/success/order/${result.data.id}`)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const getCart = async () => {
     try {
       const result = await Service.getCart()
@@ -121,6 +134,7 @@ const useCart = () => {
   return {
     cart,
     addCartItem,
+    checkout,
     getCart,
     getMaxQtyToAdd,
     getTotalItems,

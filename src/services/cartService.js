@@ -16,6 +16,14 @@ class CartService {
     }
   }
 
+  static async checkout() {
+    try {
+      return await RequestService.GET(`${CartService.API_URL}/checkout`)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   static async getCart() {
     try {
       return await RequestService.GET(`${CartService.API_URL}`)

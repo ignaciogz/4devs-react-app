@@ -23,7 +23,7 @@ const AppRouter = () => {
           <Route element={<ShoppingCart />} path="/cart" />
           <Route element={<Login />} path="/login" />
           <Route element={<Register />} path="/register" />
-          <Route element={<Success />} path="/success" />
+          <Route element={<Success />} path="/success/order/:id" />
           <Route element={<NotFound />} path="*" />
           <Route element={<Admin />} path="/cpanel" />
           <Route element={<Admin />} path="/cpanel/order/:id" />

@@ -27,7 +27,7 @@ const CartDetail = () => {
   const navigate = useNavigate()
   const timeout = useRef()
   const { isLogged } = useAuth()
-  const { cart, getCart, updateCartItem, removeCartItem } = useCart()
+  const { cart, checkout, getCart, updateCartItem, removeCartItem } = useCart()
   const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
   const { formatPrice, getIconButtonTarget } = useUtilities()
   const [loader, setLoader] = useState(true)
@@ -113,6 +113,10 @@ const CartDetail = () => {
     }
   }
 
+  async function handleCheckoutClick() {
+    await checkout()
+  }
+
   return (
     <Box className="cart-detail" component="section">
       {loader ? (
@@ -171,7 +175,12 @@ const CartDetail = () => {
                 </Table>
               </TableContainer>
               <Box className="cart-details-footer" component="div">
-                <Button className="checkout" size="large" variant="contained">
+                <Button
+                  className="checkout"
+                  size="large"
+                  variant="contained"
+                  onClick={handleCheckoutClick}
+                >
                   PROCEED TO CHECKOUT
                   <ArrowForwardIcon />
                 </Button>
