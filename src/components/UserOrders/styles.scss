@@ -3,22 +3,4 @@
 .user-orders {
     flex-grow: 1;
     @include sectionContainer(3rem);
-
-    & > .MuiPaper-root {
-        margin: 0 auto;
-        max-width: 1200px;
-        width: 90%;
-    }
-
-    @media screen and (max-width: 600px) {
-        & > .MuiPaper-root {
-            width: 100%;
-        }
-    }
-
-    h1 {
-        font-size: 1.8rem;
-        margin-bottom: 1.5rem;
-        text-align: center;
-    }
 }

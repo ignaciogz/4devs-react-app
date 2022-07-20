@@ -14,7 +14,7 @@ const modalForm = {
   edit: { Icon: <EditIcon /> },
 }
 
-const ModalForm = ({ id, action, variant, textBtn }) => {
+const ModalForm = ({ id, action, variant, text }) => {
   const [open, setOpen] = React.useState(false)
 
   const handleClickOpen = () => {
@@ -29,7 +29,7 @@ const ModalForm = ({ id, action, variant, textBtn }) => {
     <>
       <Button data-id={id} value={action} variant={variant} onClick={handleClickOpen}>
         {modalForm[action].Icon}
-        {textBtn}
+        {text}
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{action.toUpperCase()}</DialogTitle>
