@@ -13,7 +13,7 @@ class OrderService {
 
   static async getUserOrders() {
     try {
-      return await RequestService.GET(`${OrderService.API_URL}/user/`)
+      return await RequestService.GET(`${OrderService.API_URL}/all/user`)
     } catch (err) {
       console.log(err)
     }

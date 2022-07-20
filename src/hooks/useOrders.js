@@ -31,6 +31,8 @@ const useOrders = () => {
 
         setOrders(ordersToShow)
       }
+
+      return result.success
     } catch (error) {
       console.error(error)
     }

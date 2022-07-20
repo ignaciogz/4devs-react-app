@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 import Paper from '@mui/material/Paper'
 import Stepper from '@mui/material/Stepper'
@@ -12,6 +13,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 import './styles.scss'
 
@@ -70,6 +72,14 @@ const OrderDetail = () => {
 
   const steps = ['Paid out', 'Order generated', 'New email order sent']
 
+  function createBackButton(route) {
+    return (
+      <Button aria-label={`go back`} component={Link} title="Go back" to={route} variant="text">
+        <ArrowBackIcon />
+      </Button>
+    )
+  }
+
   return (
     <Box className="order-detail" component="section">
       {loader ? (
@@ -78,6 +88,7 @@ const OrderDetail = () => {
         </Box>
       ) : (
         <Paper>
+          {createBackButton('/orders')}
           <h1>Order ID: #{order.id}</h1>
           <small>{order.timestamp}</small>
           <Box className="order-detail-user" component="section">
