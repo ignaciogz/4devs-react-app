@@ -201,7 +201,7 @@ function createOrdersData({ id, date, email, name, total }) {
   return { id, date, email, name, total, actions }
 }
 
-const AdminPanelDetails = ({ dataName = 'products' }) => {
+const AdminPanelDetails = ({ dataName = 'orders' }) => {
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(7)
 

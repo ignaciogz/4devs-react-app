@@ -6,6 +6,8 @@ import Product from '../pages/Product'
 import ShoppingCart from '../pages/ShoppingCart'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
+import Orders from '../pages/Orders'
+import Order from '../pages/Order'
 import Success from '../pages/Success'
 import NotFound from '../pages/NotFound'
 import Admin from '../pages/Admin'
@@ -23,6 +25,9 @@ const AppRouter = () => {
           <Route element={<ShoppingCart />} path="/cart" />
           <Route element={<Login />} path="/login" />
           <Route element={<Register />} path="/register" />
+          <Route element={<Orders />} path="/orders" />
+          <Route element={<Order />} path="/order/:id" />
+          <Route element={<Success />} path="/success/order/:id" />
           <Route element={<Success />} path="/success/order/:id" />
           <Route element={<NotFound />} path="*" />
           <Route element={<Admin />} path="/cpanel" />

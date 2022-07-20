@@ -13,9 +13,12 @@ const useProducts = () => {
   const getAll = async () => {
     try {
       const result = await Service.getAll()
-      const productsToShow = result.data.products
 
-      setProducts(productsToShow)
+      if (result.success) {
+        const productsToShow = result.data.products
+
+        setProducts(productsToShow)
+      }
     } catch (error) {
       console.error(error)
     }

@@ -3,11 +3,11 @@ import React, { useEffect } from 'react'
 import '../../App.scss'
 
 import ResponsiveAppBar from '../../components/ResponsiveAppBar'
-import ProductDetail from '../../components/ProductDetail'
+import UserOrders from '../../components/UserOrders'
 import Footer from '../../components/Footer'
 import useAuth from '../../hooks/useAuth'
 
-const Product = () => {
+const Orders = () => {
   const { checkLoggedIn } = useAuth()
 
   useEffect(() => {
@@ -17,10 +17,10 @@ const Product = () => {
   return (
     <>
       <ResponsiveAppBar />
-      <ProductDetail />
+      <UserOrders />
       <Footer />
     </>
   )
 }
 
-export default Product
+export default Orders

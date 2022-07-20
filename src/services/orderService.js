@@ -1,10 +1,19 @@
-class OrderService {
-  static async get() {
-    try {
-      const res = await fetch('http://localhost:8080/api/orders')
-      const data = await res.json()
+import RequestService from './requestService'
 
-      return data
+class OrderService {
+  static API_URL = `${import.meta.env.VITE_API_URL}/orders`
+
+  static async getID(id) {
+    try {
+      return await RequestService.GET(`${OrderService.API_URL}/${id}`)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  static async getUserOrders() {
+    try {
+      return await RequestService.GET(`${OrderService.API_URL}/user/`)
     } catch (err) {
       console.log(err)
     }

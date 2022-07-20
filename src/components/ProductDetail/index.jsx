@@ -18,7 +18,7 @@ import useNotificator from '../../hooks/useNotificator'
 import Notificator from '../Notificator'
 import useUtilities from '../../hooks/useUtilities'
 
-const ProductDetails = () => {
+const ProductDetail = () => {
   const { id } = useParams()
   const { isLogged } = useAuth()
   const { addCartItem, getMaxQtyToAdd } = useCart()
@@ -174,4 +174,4 @@ const ProductDetails = () => {
   )
 }
 
-export default ProductDetails
+export default ProductDetail

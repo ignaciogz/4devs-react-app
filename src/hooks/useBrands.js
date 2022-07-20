@@ -8,9 +8,8 @@ const useBrands = () => {
   const getAllBrands = async () => {
     try {
       const result = await Service.getAll()
-      const brandsToShow = result.data.brands
 
-      setBrands(brandsToShow)
+      result.success && setBrands(result.data.brands)
     } catch (error) {
       console.error(error)
     }

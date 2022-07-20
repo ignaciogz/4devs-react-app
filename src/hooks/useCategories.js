@@ -8,9 +8,8 @@ const useCategories = () => {
   const getAllCategories = async () => {
     try {
       const result = await Service.getAll()
-      const categoriesToShow = result.data.categories
 
-      setCategories(categoriesToShow)
+      result.success && setCategories(result.data.categories)
     } catch (error) {
       console.error(error)
     }
