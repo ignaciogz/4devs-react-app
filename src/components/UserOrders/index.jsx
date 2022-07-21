@@ -28,7 +28,7 @@ const UserOrders = () => {
           <CircularProgress />
         </Box>
       ) : (
-        <PaginatedTable data={orders} dataName="user_orders" title="User Orders" />
+        <PaginatedTable cpanel={false} data={orders} dataName="user_orders" title="User Orders" />
       )}
     </Box>
   )

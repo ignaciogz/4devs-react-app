@@ -10,13 +10,6 @@ import TableRow from '@mui/material/TableRow'
 
 import './styles.scss'
 
-/* orderServer = [
-  { idProduct: 1, qty: 2 },
-  { idProduct: 4, qty: 1 },
-  { idProduct: 5, qty: 4 },
-  { idProduct: 2, qty: 1 },
-] */
-
 const order = {
   id: 8461,
   date: '29/06/2022',

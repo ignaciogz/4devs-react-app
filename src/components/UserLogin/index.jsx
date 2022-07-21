@@ -27,7 +27,7 @@ const UserLogin = () => {
     isLogged && navigate('/')
 
     setLoader(false)
-  }, [navigate])
+  }, [])
   // ↑ ****** END - AUTH ****** ↑
 
   const handleSubmit = async (event) => {

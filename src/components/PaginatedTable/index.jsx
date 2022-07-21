@@ -19,6 +19,25 @@ import './styles.scss'
 
 import useUtilities from '../../hooks/useUtilities'
 
+const tableName = {
+  products: {
+    text: 'products',
+    span: 5,
+  },
+  categories: {
+    text: 'categories',
+    span: 2,
+  },
+  users: {
+    text: 'users',
+    span: 4,
+  },
+  orders: {
+    text: 'orders',
+    span: 6,
+  },
+}
+
 // ↓ ****** START - FACTORY ****** ↓
 function createData(data, tableName) {
   return data.map((item) => createDataFactory[tableName](item))
@@ -103,7 +122,7 @@ function createUserOrdersData({ id, timestamp, items }) {
 }
 // ↑ ****** END - DTOS ****** ↑
 
-const PaginatedTable = ({ data, dataName, title }) => {
+const PaginatedTable = ({ data, dataName, title, cpanel }) => {
   const { formatPrice } = useUtilities()
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(7)
@@ -228,20 +247,34 @@ const PaginatedTable = ({ data, dataName, title }) => {
   }
 
   const tableRows = data ? createData(data, dataName) : []
+  const sxObj = cpanel ? { maxHeight: 440 } : {}
 
   return (
     <Box className="paginated-table" component="section">
-      <Box className="paginated-table-header">
-        <h1>{title}</h1>
-        {dataName !== 'orders' && dataName !== 'user_orders' && (
+      {!cpanel && (
+        <Box className="paginated-table-header">
+          <h1>{title}</h1>
           <ModalForm action="add" text="ADD ITEM" variant="text" />
-        )}
-      </Box>
+        </Box>
+      )}
+
       {tableRows.length > 0 ? (
         <Paper>
-          <TableContainer sx={{ maxHeight: 440 }}>
+          <TableContainer sx={sxObj}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
+                {cpanel && (
+                  <TableRow>
+                    <TableCell className="table-name" colSpan={tableName[dataName].span}>
+                      <h1>{tableName[dataName].text.toUpperCase()}</h1>
+                    </TableCell>
+                    {dataName !== 'orders' && (
+                      <TableCell align="right" className="table-name">
+                        <ModalForm action="add" text="NEW" variant="text" />
+                      </TableCell>
+                    )}
+                  </TableRow>
+                )}
                 <TableRow>
                   {columns[dataName].map((column) => (
                     <TableCell

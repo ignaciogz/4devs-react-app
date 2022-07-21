@@ -1,6 +1,8 @@
-import * as React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { styled, useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
 import MuiDrawer from '@mui/material/Drawer'
 import MuiAppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
@@ -25,6 +27,7 @@ import ListNumberedIcon from '@mui/icons-material/FormatListNumbered'
 
 import AdminPanelDetails from '../AdminPanelDetails'
 import AdminPanelOrders from '../AdminPanelOrders'
+import useAuth from '../../hooks/useAuth'
 
 import './styles.scss'
 
@@ -107,9 +110,21 @@ const group2 = [
   { text: 'Logout', icon: LogoutIcon },
 ]
 
-const AdminPanel = ({ page = 'details' }) => {
+const AdminPanel = () => {
   const theme = useTheme()
-  const [open, setOpen] = React.useState(false)
+  const [page, setPage] = useState('Products')
+  const [open, setOpen] = useState(false)
+  const navigate = useNavigate()
+  const { isAuthAdmin, handleLogout } = useAuth()
+  const [loader, setLoader] = useState(true)
+
+  // ↓ ****** START - AUTH ****** ↓
+  useEffect(() => {
+    !isAuthAdmin && navigate('/')
+
+    setLoader(false)
+  }, [])
+  // ↑ ****** END - AUTH ****** ↑
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -119,89 +134,131 @@ const AdminPanel = ({ page = 'details' }) => {
     setOpen(false)
   }
 
+  const handlePageButtonClick = (pageName) => {
+    return () => setPage(pageName)
+  }
+
+  const handleLogoutClick = async (event) => {
+    await handleLogout(event)
+    navigate('/')
+  }
+
   return (
     <Box className="admin-panel" sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar className="navbar" open={open} position="fixed">
-        <Toolbar>
-          <IconButton
-            aria-label="open drawer"
-            color="inherit"
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-            onClick={handleDrawerOpen}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography noWrap component="div" sx={{ fontWeight: 'bold', fontSize: '1.5rem' }}>
-            ADMIN PANEL
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer open={open} variant="permanent">
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {group1.map((item, index) => (
-            <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
+      {loader ? (
+        <Box className="loader">
+          <CircularProgress />
+        </Box>
+      ) : (
+        <>
+          <CssBaseline />
+          <AppBar className="navbar" open={open} position="fixed">
+            <Toolbar>
+              <IconButton
+                aria-label="open drawer"
+                color="inherit"
+                edge="start"
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  marginRight: 5,
+                  ...(open && { display: 'none' }),
                 }}
+                onClick={handleDrawerOpen}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {<item.icon />}
-                </ListItemIcon>
-                <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List className="final-list-group">
-          {group2.map((item, index) => (
-            <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {<item.icon />}
-                </ListItemIcon>
-                <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
-        {page === 'order' ? <AdminPanelOrders /> : <AdminPanelDetails />}
-      </Box>
+                <MenuIcon />
+              </IconButton>
+              <Typography noWrap component="div" sx={{ fontWeight: 'bold', fontSize: '1.5rem' }}>
+                ADMIN PANEL
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Drawer open={open} variant="permanent">
+            <DrawerHeader>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+              </IconButton>
+            </DrawerHeader>
+            <Divider />
+            <List>
+              {group1.map((item, index) => (
+                <ListItem key={index} disablePadding sx={{ display: 'block' }}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                    }}
+                    onClick={handlePageButtonClick(item.text)}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {<item.icon />}
+                    </ListItemIcon>
+                    <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+            <Divider />
+            <List className="final-list-group">
+              {group2.map((item, index) => (
+                <ListItem key={index} disablePadding sx={{ display: 'block' }}>
+                  {item.text !== 'Logout' ? (
+                    <ListItemButton
+                      component={Link}
+                      sx={{
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                        px: 2.5,
+                      }}
+                      to="/"
+                    >
+                      <ListItemIcon
+                        sx={{
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        {<item.icon />}
+                      </ListItemIcon>
+                      <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
+                    </ListItemButton>
+                  ) : (
+                    <ListItemButton
+                      sx={{
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                        px: 2.5,
+                      }}
+                      onClick={handleLogoutClick}
+                    >
+                      <ListItemIcon
+                        sx={{
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        {<item.icon />}
+                      </ListItemIcon>
+                      <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
+                    </ListItemButton>
+                  )}
+                </ListItem>
+              ))}
+            </List>
+          </Drawer>
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <DrawerHeader />
+            {page === 'Order' ? <AdminPanelOrders /> : <AdminPanelDetails page={page} />}
+          </Box>
+        </>
+      )}
     </Box>
   )
 }
