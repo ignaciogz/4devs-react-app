@@ -114,7 +114,13 @@ const CartDetail = () => {
   }
 
   async function handleCheckoutClick() {
-    await checkout()
+    setLoader(true)
+    const result = await checkout()
+
+    if (!result.success) {
+      setLoader(false)
+      setNotificator('warning', `${result.error.description}`)
+    }
   }
 
   return (
@@ -153,7 +159,7 @@ const CartDetail = () => {
                             {row.name}
                           </Box>
                         </TableCell>
-                        <TableCell>${formatPrice(row.price)}</TableCell>
+                        <TableCell>{formatPrice(row.price)}</TableCell>
                         <TableCell>{row.qty}</TableCell>
                         <TableCell align="right">{formatPrice(row.subtotal)}</TableCell>
                         <TableCell align="center">

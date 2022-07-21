@@ -51,7 +51,28 @@ const useCart = () => {
       if (result.success) {
         setCart([])
         result.success && navigate(`/success/order/${result.data.id}`)
+      } else {
+        const cartUpdated = [...cart]
+
+        const productsWithStockProblem = result.error.value
+
+        for (const item of productsWithStockProblem) {
+          let itemIndex = cart.findIndex((element) => element.product.id == item.id_prod)
+          let itemToUpdate = cart[itemIndex]
+
+          if (item.value == 0) {
+            cartUpdated.splice(itemIndex, 1)
+          } else {
+            itemToUpdate.qty = Number(item.value)
+
+            cartUpdated.splice(itemIndex, 1, itemToUpdate)
+          }
+        }
+
+        setCart(cartUpdated)
       }
+
+      return result
     } catch (error) {
       console.error(error)
     }

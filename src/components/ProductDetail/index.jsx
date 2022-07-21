@@ -139,12 +139,12 @@ const ProductDetail = () => {
                       inputMode: 'numeric',
                       pattern: '[0-9]*',
                       disabled: maxQty ? false : true,
-                      min: maxQty ? 1 : 0,
-                      max: maxQty,
+                      min: maxQty ? '1' : '0',
+                      max: maxQty.toString(),
                     }}
                     label="Units to add"
                     type="number"
-                    value={maxQty ? units : 0}
+                    value={maxQty ? units.toString() : '0'}
                     variant="standard"
                     onChange={handleChange}
                   />
