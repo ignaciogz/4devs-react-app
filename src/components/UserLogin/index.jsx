@@ -50,6 +50,12 @@ const UserLogin = () => {
     }
   }
 
+  const handleFacebookClick = async (event) => {
+    event.preventDefault()
+
+    setNotificator('info', 'Not implemented')
+  }
+
   return (
     <Box className="login" component="section">
       {loader ? (
@@ -91,7 +97,12 @@ const UserLogin = () => {
             <Divider className="divider">
               <Chip label="Or" />
             </Divider>
-            <Button className="loginFacebookBtn" size="large" variant="contained">
+            <Button
+              className="loginFacebookBtn"
+              size="large"
+              variant="contained"
+              onClick={handleFacebookClick}
+            >
               <FacebookIcon />
               FACEBOOK
             </Button>

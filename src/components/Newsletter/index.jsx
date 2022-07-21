@@ -6,7 +6,18 @@ import TextField from '@mui/material/TextField'
 
 import './styles.scss'
 
+import useNotificator from '../../hooks/useNotificator'
+import Notificator from '../Notificator'
+
 const Newsletter = () => {
+  const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
+
+  const handleClick = async (event) => {
+    event.preventDefault()
+
+    setNotificator('info', 'Not implemented')
+  }
+
   return (
     <Box className="newsletter" component="section">
       <Grid container spacing={0}>
@@ -19,10 +30,21 @@ const Newsletter = () => {
         <Grid item xs={7}>
           <Box noValidate autoComplete="off" component="form">
             <TextField required className="text-field" placeholder="Email Address" size="small" />
-            <Button variant="contained">SUBMIT</Button>
+            <Button variant="contained" onClick={handleClick}>
+              SUBMIT
+            </Button>
           </Box>
         </Grid>
       </Grid>
+
+      {isOpen && (
+        <Notificator
+          closeNotificator={closeNotificator}
+          isOpen={isOpen}
+          severity={severity}
+          text={text}
+        />
+      )}
     </Box>
   )
 }
