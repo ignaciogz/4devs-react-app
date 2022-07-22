@@ -22,6 +22,10 @@ import useUser from '../../hooks/useUser'
 
 import './styles.scss'
 
+const MODE_DEV = import.meta.env.VITE_ENV !== 'production'
+const SERVER_DEV = import.meta.env.VITE_SERVER_URL_DEV
+const SERVER_PROD = import.meta.env.VITE_SERVER_URL_PROD
+
 const ResponsiveAppBar = () => {
   const { isLogged, handleLogout } = useAuth()
   const { getTotalItems, handleCartIconClick } = useCart()
@@ -186,7 +190,10 @@ const ResponsiveAppBar = () => {
                   sx={{ p: 0 }}
                   onClick={handleOpenUserMenu}
                 >
-                  <Avatar alt={user.name} src={`${import.meta.env.VITE_SERVER_URL}${user.img}`} />
+                  <Avatar
+                    alt={user.name}
+                    src={`${MODE_DEV ? SERVER_DEV : SERVER_PROD}${user.img}`}
+                  />
                 </IconButton>
               </Tooltip>
             ) : (

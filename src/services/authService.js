@@ -1,7 +1,7 @@
 import RequestService from './requestService'
 
 class AuthService {
-  static API_URL = `${import.meta.env.VITE_API_URL}/auth`
+  static API_URL = `${RequestService.SERVER}/api/auth`
 
   static async checkLoggedIn() {
     try {

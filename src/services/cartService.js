@@ -1,7 +1,7 @@
 import RequestService from './requestService'
 
 class CartService {
-  static API_URL = `${import.meta.env.VITE_API_URL}/cart`
+  static API_URL = `${RequestService.SERVER}/api/cart`
 
   static async add(id_prod, qty, addMaxAvailable) {
     try {

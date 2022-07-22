@@ -18,6 +18,10 @@ import useNotificator from '../../hooks/useNotificator'
 import Notificator from '../Notificator'
 import useUtilities from '../../hooks/useUtilities'
 
+const MODE_DEV = import.meta.env.VITE_ENV !== 'production'
+const SERVER_DEV = import.meta.env.VITE_SERVER_URL_DEV
+const SERVER_PROD = import.meta.env.VITE_SERVER_URL_PROD
+
 const ProductCard = ({ id, name, price, img }) => {
   const navigate = useNavigate()
   const { isOpen, severity, text, closeNotificator, setNotificator } = useNotificator()
@@ -50,7 +54,7 @@ const ProductCard = ({ id, name, price, img }) => {
               alt={name}
               component="img"
               height="180"
-              src={`${import.meta.env.VITE_SERVER_URL}${img}`}
+              src={`${MODE_DEV ? SERVER_DEV : SERVER_PROD}${img}`}
             />
             <CardContent className="content">
               <Typography gutterBottom component="div" variant="h5">

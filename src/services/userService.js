@@ -1,7 +1,7 @@
 import RequestService from './requestService'
 
 class UserService {
-  static API_URL = `${import.meta.env.VITE_API_URL}/users`
+  static API_URL = `${RequestService.SERVER}/api/users`
 
   static async getUserLogged() {
     try {

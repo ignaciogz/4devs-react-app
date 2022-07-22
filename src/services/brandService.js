@@ -1,7 +1,7 @@
 import RequestService from './requestService'
 
 class BrandService {
-  static API_URL = `${import.meta.env.VITE_API_URL}/brands`
+  static API_URL = `${RequestService.SERVER}/api/brands`
 
   static async getAll() {
     try {

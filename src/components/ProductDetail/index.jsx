@@ -18,6 +18,10 @@ import useNotificator from '../../hooks/useNotificator'
 import Notificator from '../Notificator'
 import useUtilities from '../../hooks/useUtilities'
 
+const MODE_DEV = import.meta.env.VITE_ENV !== 'production'
+const SERVER_DEV = import.meta.env.VITE_SERVER_URL_DEV
+const SERVER_PROD = import.meta.env.VITE_SERVER_URL_PROD
+
 const ProductDetail = () => {
   const { id } = useParams()
   const { isLogged } = useAuth()
@@ -101,7 +105,7 @@ const ProductDetail = () => {
       ) : (
         <Grid container spacing={0}>
           <Grid item xs={4}>
-            <img src={`${import.meta.env.VITE_SERVER_URL}${product.img}`} />
+            <img src={`${MODE_DEV ? SERVER_DEV : SERVER_PROD}${product.img}`} />
           </Grid>
           <Grid item xs={8}>
             <Grid container spacing={0}>

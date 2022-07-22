@@ -20,6 +20,10 @@ import './styles.scss'
 import useOrders from '../../hooks/useOrders'
 import useUtilities from '../../hooks/useUtilities'
 
+const MODE_DEV = import.meta.env.VITE_ENV !== 'production'
+const SERVER_DEV = import.meta.env.VITE_SERVER_URL_DEV
+const SERVER_PROD = import.meta.env.VITE_SERVER_URL_PROD
+
 const OrderDetail = () => {
   const { id } = useParams()
   const { order, getIDOrders } = useOrders()
@@ -132,7 +136,10 @@ const OrderDetail = () => {
                 {orderRows.map((row, index) => (
                   <TableRow key={index} className="table-content">
                     <TableCell align="center" size="small">
-                      <img alt={`image of ${row.name}`} src={row.img} />
+                      <img
+                        alt={`image of ${row.name}`}
+                        src={`${MODE_DEV ? SERVER_DEV : SERVER_PROD}${row.img}`}
+                      />
                     </TableCell>
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{formatPrice(row.price)}</TableCell>

@@ -23,6 +23,10 @@ import useNotificator from '../../hooks/useNotificator'
 import useUtilities from '../../hooks/useUtilities'
 import Notificator from '../Notificator'
 
+const MODE_DEV = import.meta.env.VITE_ENV !== 'production'
+const SERVER_DEV = import.meta.env.VITE_SERVER_URL_DEV
+const SERVER_PROD = import.meta.env.VITE_SERVER_URL_PROD
+
 const CartDetail = () => {
   const navigate = useNavigate()
   const timeout = useRef()
@@ -80,10 +84,13 @@ const CartDetail = () => {
   const cartTotal = !loader && cart.length > 0 ? calculateTotal(cartRows) : 0
 
   const handleRemoveIconClick = async (event) => {
+    setLoader(true)
     const target = getIconButtonTarget(event.target)
     const { id } = target.dataset
 
     const success = await removeCartItem(id)
+
+    setLoader(false)
 
     success
       ? setNotificator('warning', 'Item removed')
@@ -153,7 +160,7 @@ const CartDetail = () => {
                           <Box component={Link} to={`/product/${row.id}`}>
                             <img
                               alt={`image of ${row.name}`}
-                              src={`${import.meta.env.VITE_SERVER_URL}${row.img}`}
+                              src={`${MODE_DEV ? SERVER_DEV : SERVER_PROD}${row.img}`}
                             />
                           </Box>
                         </TableCell>

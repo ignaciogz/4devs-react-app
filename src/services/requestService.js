@@ -45,4 +45,10 @@ async function DELETE(url, data = {}) {
   return await generateRequestWithOptions(url, 'DELETE', data, false)
 }
 
-export default { GET, POST, PUT, DELETE }
+const MODE_DEV = import.meta.env.VITE_ENV !== 'production'
+const SERVER_DEV = import.meta.env.VITE_SERVER_URL_DEV
+const SERVER_PROD = import.meta.env.VITE_SERVER_URL_PROD
+
+const SERVER = MODE_DEV ? SERVER_DEV : SERVER_PROD
+
+export default { SERVER, GET, POST, PUT, DELETE }

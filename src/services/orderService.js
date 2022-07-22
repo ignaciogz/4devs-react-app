@@ -1,7 +1,7 @@
 import RequestService from './requestService'
 
 class OrderService {
-  static API_URL = `${import.meta.env.VITE_API_URL}/orders`
+  static API_URL = `${RequestService.SERVER}/api/orders`
 
   static async getID(id) {
     try {
