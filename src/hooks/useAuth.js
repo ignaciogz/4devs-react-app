@@ -58,7 +58,6 @@ const useAuth = () => {
     try {
       const result = await Service.login({ username, password })
 
-      debugger
       if (result.success) {
         await loginUserNow()
       }
