@@ -151,7 +151,10 @@ const CartDetail = () => {
                       <TableRow key={index} className="table-content">
                         <TableCell align="center" size="small">
                           <Box component={Link} to={`/product/${row.id}`}>
-                            <img alt={`image of ${row.name}`} src={row.img} />
+                            <img
+                              alt={`image of ${row.name}`}
+                              src={`${import.meta.env.VITE_SERVER_URL}${row.img}`}
+                            />
                           </Box>
                         </TableCell>
                         <TableCell>

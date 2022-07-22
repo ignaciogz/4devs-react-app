@@ -101,7 +101,7 @@ const ProductDetail = () => {
       ) : (
         <Grid container spacing={0}>
           <Grid item xs={4}>
-            <img src={product.img} />
+            <img src={`${import.meta.env.VITE_SERVER_URL}${product.img}`} />
           </Grid>
           <Grid item xs={8}>
             <Grid container spacing={0}>

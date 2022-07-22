@@ -123,7 +123,10 @@ const AdminPanelOrders = () => {
             {rows.map((row, index) => (
               <TableRow key={index} className="table-content">
                 <TableCell align="center" size="small">
-                  <img alt={`image of ${row.name}`} src={row.img} />
+                  <img
+                    alt={`image of ${row.name}`}
+                    src={`${import.meta.env.VITE_SERVER_URL}${row.img}`}
+                  />
                 </TableCell>
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.price}</TableCell>

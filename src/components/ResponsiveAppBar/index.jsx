@@ -186,7 +186,7 @@ const ResponsiveAppBar = () => {
                   sx={{ p: 0 }}
                   onClick={handleOpenUserMenu}
                 >
-                  <Avatar alt={user.name} src={`http://localhost:8080/img/avatars/${user.img}`} />
+                  <Avatar alt={user.name} src={`${import.meta.env.VITE_SERVER_URL}${user.img}`} />
                 </IconButton>
               </Tooltip>
             ) : (

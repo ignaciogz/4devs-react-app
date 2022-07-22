@@ -46,7 +46,12 @@ const ProductCard = ({ id, name, price, img }) => {
       <Card className="product-card">
         <CardActionArea component={Link} to={`/product/${id}`}>
           <Box className="product-details" component="div">
-            <CardMedia alt={name} component="img" height="180" src={img} />
+            <CardMedia
+              alt={name}
+              component="img"
+              height="180"
+              src={`${import.meta.env.VITE_SERVER_URL}${img}`}
+            />
             <CardContent className="content">
               <Typography gutterBottom component="div" variant="h5">
                 {name}
