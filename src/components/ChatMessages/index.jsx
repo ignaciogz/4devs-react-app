@@ -14,6 +14,10 @@ import './styles.scss'
 import useChat from '../../hooks/useChat'
 import useUtilities from '../../hooks/useUtilities'
 
+const MODE_DEV = import.meta.env.VITE_ENV !== 'production'
+const SERVER_DEV = import.meta.env.VITE_SERVER_URL_DEV
+const SERVER_PROD = import.meta.env.VITE_SERVER_URL_PROD
+
 const ChatMessages = ({ socket }) => {
   const { chatSchema } = useChat()
   const { getDenormalizeData } = useUtilities()
@@ -65,7 +69,7 @@ const ChatMessages = ({ socket }) => {
                   <ListItemAvatar>
                     <Avatar
                       alt={`avatar of ${item.author.name}`}
-                      src={`http://localhost:8080/img/avatars/${item.author.img}`}
+                      src={`${MODE_DEV ? SERVER_DEV : SERVER_PROD}${item.author.img}`}
                     />
                   </ListItemAvatar>
                   <ListItemText

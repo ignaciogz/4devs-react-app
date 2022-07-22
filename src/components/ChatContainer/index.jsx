@@ -10,6 +10,10 @@ import useAuth from '../../hooks/useAuth'
 import ChatMessages from '../ChatMessages'
 import ChatMessageInput from '../ChatMessageInput'
 
+const MODE_DEV = import.meta.env.VITE_ENV !== 'production'
+const SERVER_DEV = import.meta.env.VITE_SERVER_URL_DEV
+const SERVER_PROD = import.meta.env.VITE_SERVER_URL_PROD
+
 const ChatContainer = () => {
   const navigate = useNavigate()
   const { isLogged } = useAuth()
@@ -28,7 +32,7 @@ const ChatContainer = () => {
   useEffect(() => {
     !isLogged && navigate('/login')
 
-    const newSocket = io(`http://${window.location.hostname}:8080`, {
+    const newSocket = io(`${MODE_DEV ? SERVER_DEV : SERVER_PROD}`, {
       withCredentials: true,
     })
 
