@@ -254,7 +254,7 @@ const PaginatedTable = ({ data, dataName, title, cpanel }) => {
       {!cpanel && (
         <Box className="paginated-table-header">
           <h1>{title}</h1>
-          <ModalForm action="add" text="ADD ITEM" variant="text" />
+          {dataName != 'user_orders' && <ModalForm action="add" text="ADD ITEM" variant="text" />}
         </Box>
       )}
 
